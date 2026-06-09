@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Programmes &amp; Services - ACDRM</title>
+  <meta name="description" content="ACDRM's core services, flagship programmes, ARLF, ARDGI, and the Disaster Risk Observatory, and specialist practice areas in disaster risk and resilience.">
+  <link rel="icon" href="/favicon.ico" sizes="any">
+  <link rel="icon" type="image/png" href="/assets/img/logo/logo-icon.png">
+  <link rel="apple-touch-icon" href="/assets/img/logo/logo-icon.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.css">
+  <link rel="stylesheet" href="../assets/css/main.css">
+  <style>
+    .page-hero { background: var(--accent-color); padding: 132px 0 72px; text-align: center; }
+    .page-hero .eyebrow { color: var(--gold-color); font-size: 11px; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; display: block; margin-bottom: 16px; }
+    .page-hero h1 { font-size: clamp(32px, 4vw, 52px); font-weight: 800; color: #fff; margin-bottom: 16px; }
+    .page-hero p { font-size: 17px; color: rgba(255,255,255,0.72); max-width: 640px; margin: 0 auto; line-height: 1.7; }
+
+    /* Core services */
+    .svc-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 24px; }
+    .svc-card { background: #fff; border: 1px solid color-mix(in srgb, var(--accent-color), transparent 90%); border-radius: 18px; padding: 36px 32px; transition: transform .3s, border-color .3s, box-shadow .3s; }
+    .svc-card:hover { transform: translateY(-4px); border-color: var(--gold-color); box-shadow: 0 14px 34px rgba(23,59,109,0.08); }
+    .svc-head { display: flex; align-items: center; gap: 16px; margin-bottom: 20px; }
+    .svc-icon { width: 52px; height: 52px; border-radius: 13px; background: color-mix(in srgb, var(--green-color), transparent 88%); display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+    .svc-icon i { font-size: 23px; color: var(--green-color); }
+    .svc-head h3 { font-size: 19px; font-weight: 700; color: var(--accent-color); margin: 0; }
+    .svc-card ul { list-style: none; padding: 0; margin: 0; }
+    .svc-card ul li { font-size: 14.5px; line-height: 1.5; color: color-mix(in srgb, var(--charcoal-color), transparent 22%); padding: 7px 0 7px 24px; position: relative; }
+    .svc-card ul li::before { content: ''; position: absolute; left: 0; top: 14px; width: 7px; height: 7px; border-radius: 50%; background: var(--gold-color); }
+
+    /* Flagship programmes */
+    .flag-card { display: grid; grid-template-columns: 280px 1fr; gap: 0; background: #fff; border: 1px solid color-mix(in srgb, var(--accent-color), transparent 90%); border-radius: 20px; overflow: hidden; margin-bottom: 28px; transition: box-shadow .3s, border-color .3s; }
+    .flag-card:hover { border-color: var(--gold-color); box-shadow: 0 16px 38px rgba(23,59,109,0.09); }
+    .flag-side { background: var(--accent-color); padding: 36px 30px; display: flex; flex-direction: column; justify-content: center; position: relative; }
+    .flag-side::after { content: ''; position: absolute; bottom: 28px; left: 30px; width: 44px; height: 3px; background: var(--gold-color); border-radius: 2px; }
+    .flag-side .acronym { font-size: 40px; font-weight: 800; color: #fff; line-height: 1; letter-spacing: -0.02em; margin-bottom: 10px; font-family: var(--heading-font); }
+    .flag-side .tagline { font-size: 13px; color: rgba(255,255,255,0.6); font-weight: 500; }
+    .flag-body { padding: 36px 36px; }
+    .flag-body .ptype { font-size: 11px; font-weight: 700; color: var(--green-color); letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 8px; }
+    .flag-body h3 { font-size: 22px; font-weight: 800; color: var(--accent-color); margin-bottom: 12px; line-height: 1.25; }
+    .flag-body > p { font-size: 15px; line-height: 1.7; color: color-mix(in srgb, var(--charcoal-color), transparent 25%); margin-bottom: 20px; }
+    .flag-meta { display: flex; flex-wrap: wrap; gap: 10px 24px; margin-bottom: 22px; }
+    .flag-meta .m { display: flex; align-items: center; gap: 8px; font-size: 13px; color: var(--charcoal-color); }
+    .flag-meta .m i { color: var(--green-color); font-size: 15px; }
+    .flag-link { font-size: 14px; font-weight: 600; color: var(--accent-color); display: inline-flex; align-items: center; gap: 6px; transition: gap .2s; }
+    .flag-link:hover { gap: 10px; }
+
+    /* Practice areas */
+    .pa-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 22px; }
+    .pa-card { background: #fff; border-radius: 14px; padding: 28px 26px; border: 1.5px solid transparent; transition: transform .3s, border-color .3s, box-shadow .3s; }
+    .pa-card:hover { transform: translateY(-4px); border-color: var(--gold-color); box-shadow: 0 12px 30px rgba(23,59,109,0.08); }
+    .pa-card .pa-icon { width: 48px; height: 48px; border-radius: 11px; background: color-mix(in srgb, var(--accent-color), transparent 92%); display: flex; align-items: center; justify-content: center; margin-bottom: 18px; }
+    .pa-card .pa-icon i { font-size: 21px; color: var(--accent-color); }
+    .pa-card h3 { font-size: 16px; font-weight: 700; color: var(--accent-color); margin-bottom: 8px; line-height: 1.35; }
+    .pa-card p { font-size: 14px; line-height: 1.6; color: color-mix(in srgb, var(--charcoal-color), transparent 30%); margin: 0; }
+
+    @media (max-width: 900px) {
+      .svc-grid { grid-template-columns: 1fr; }
+      .flag-card { grid-template-columns: 1fr; }
+      .flag-side { padding: 28px 30px; }
+      .flag-side::after { display: none; }
+      .pa-grid { grid-template-columns: 1fr 1fr; }
+    }
+    @media (max-width: 560px) { .pa-grid { grid-template-columns: 1fr; } }
+  </style>
+</head>
+<body>
+  <div id="preloader"></div>
+  <button class="scroll-top" aria-label="Scroll to top"><i class="bi bi-arrow-up"></i></button>
+
+  <header class="header scrolled" id="header">
+    <a href="../index.html" class="logo">
+      <img src="../assets/img/logo/logo-color.png" alt="ACDRM, African Centre for Disaster Risk Management" class="logo-lockup">
+    </a>
+    <nav class="navmenu">
+      <ul>
+        <li><a href="about.html">About</a></li>
+        <li><a href="../index.html#pillars">What We Do</a></li>
+        <li><a href="programmes.html" class="active">Programmes</a></li>
+        <li><a href="research.html">Research</a></li>
+        <li><a href="partnerships.html">Partnerships</a></li>
+        <li><a href="contact.html">Contact</a></li>
+      </ul>
+      <a href="contact.html" class="btn-partner">Partner With Us</a>
+    </nav>
+    <button class="mobile-nav-toggle bi bi-list" aria-label="Toggle menu"></button>
+  </header>
+
+  <section class="page-hero">
+    <div class="container">
+      <span class="eyebrow">Programmes &amp; Services</span>
+      <h1>What We Deliver</h1>
+      <p>Four core service lines, three flagship programmes, and specialist practice areas, each designed for the needs of governments, donors, and institutions across Africa.</p>
+    </div>
+  </section>
+
+  <!-- CORE SERVICES -->
+  <section class="section">
+    <div class="container">
+      <div class="section-header center" data-aos="fade-up">
+        <span class="eyebrow">Core Services</span>
+        <h2>Four Service Lines</h2>
+        <div class="gold-line"></div>
+      </div>
+      <div class="svc-grid">
+        <div class="svc-card" data-aos="fade-up" data-aos-delay="100">
+          <div class="svc-head"><div class="svc-icon"><i class="bi bi-bank"></i></div><h3>Advisory &amp; Policy</h3></div>
+          <ul>
+            <li>Disaster risk governance assessments and institutional diagnostics</li>
+            <li>National and sub-national disaster risk policy design</li>
+            <li>Humanitarian coordination framework development</li>
+            <li>Strategic planning for emergency management agencies</li>
+            <li>Post-disaster needs assessments and recovery planning</li>
+          </ul>
+        </div>
+        <div class="svc-card" data-aos="fade-up" data-aos-delay="200">
+          <div class="svc-head"><div class="svc-icon"><i class="bi bi-search"></i></div><h3>Research &amp; Knowledge</h3></div>
+          <ul>
+            <li>Applied disaster risk and climate resilience research</li>
+            <li>Policy briefs, toolkits, and institutional publications</li>
+            <li>Disaster risk data collection, analysis, and reporting</li>
+            <li>Continental and country-level risk profiling</li>
+            <li>Knowledge management system design</li>
+          </ul>
+        </div>
+        <div class="svc-card" data-aos="fade-up" data-aos-delay="100">
+          <div class="svc-head"><div class="svc-icon"><i class="bi bi-mortarboard"></i></div><h3>Training &amp; Capacity Building</h3></div>
+          <ul>
+            <li>Certified professional training for emergency managers</li>
+            <li>Executive leadership development for government officials</li>
+            <li>Fellowship and academic programme delivery</li>
+            <li>Curriculum design and training manual development</li>
+            <li>Institutional training needs assessment</li>
+          </ul>
+        </div>
+        <div class="svc-card" data-aos="fade-up" data-aos-delay="200">
+          <div class="svc-head"><div class="svc-icon"><i class="bi bi-cash-coin"></i></div><h3>Resilience Financing</h3></div>
+          <ul>
+            <li>Disaster risk financing strategy design</li>
+            <li>Donor programme development and proposal preparation</li>
+            <li>Risk financing mechanism design for governments</li>
+            <li>Partnership structuring for multilateral engagements</li>
+            <li>Grant management advisory</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FLAGSHIP PROGRAMMES -->
+  <section class="section light-background" id="flagship">
+    <div class="container">
+      <div class="section-header center" data-aos="fade-up">
+        <span class="eyebrow">Flagship Programmes</span>
+        <h2>Our Continental Ambition</h2>
+        <div class="gold-line"></div>
+      </div>
+
+      <div class="flag-card" data-aos="fade-up">
+        <div class="flag-side"><div class="acronym">ARLF</div><div class="tagline">African Resilience Leadership Fellowship</div></div>
+        <div class="flag-body">
+          <div class="ptype">Programme 01 · Flagship</div>
+          <h3>African Resilience Leadership Fellowship</h3>
+          <p>ACDRM's flagship professional development programme, designed to build the next generation of African disaster management and humanitarian leadership talent.</p>
+          <div class="flag-meta">
+            <div class="m"><i class="bi bi-people"></i> 40 Fellows per cohort</div>
+            <div class="m"><i class="bi bi-calendar-check"></i> 6 months · Hybrid</div>
+            <div class="m"><i class="bi bi-person-badge"></i> Mid-career professionals</div>
+          </div>
+          <a href="arlf.html" class="flag-link">Explore the Fellowship <i class="bi bi-arrow-right"></i></a>
+        </div>
+      </div>
+
+      <div class="flag-card" data-aos="fade-up">
+        <div class="flag-side"><div class="acronym">OBS</div><div class="tagline">African Disaster Risk &amp; Resilience Observatory</div></div>
+        <div class="flag-body">
+          <div class="ptype">Programme 02 · Flagship</div>
+          <h3>African Disaster Risk &amp; Resilience Observatory</h3>
+          <p>ACDRM's continental knowledge and analytics platform, built to generate and disseminate the disaster risk intelligence that African governments and institutions need to make better decisions.</p>
+          <div class="flag-meta">
+            <div class="m"><i class="bi bi-bar-chart"></i> Risk data &amp; analytics</div>
+            <div class="m"><i class="bi bi-geo"></i> Hazard mapping</div>
+            <div class="m"><i class="bi bi-file-earmark-text"></i> Annual African Disaster Risk Report</div>
+          </div>
+          <a href="observatory.html" class="flag-link">Explore the Observatory <i class="bi bi-arrow-right"></i></a>
+        </div>
+      </div>
+
+      <div class="flag-card" data-aos="fade-up">
+        <div class="flag-side"><div class="acronym">ARDGI</div><div class="tagline">African Resilience &amp; Disaster Risk Governance Initiative</div></div>
+        <div class="flag-body">
+          <div class="ptype">Programme 03 · Flagship</div>
+          <h3>African Resilience &amp; Disaster Risk Governance Initiative</h3>
+          <p>ACDRM's flagship multi-country governance programme, a five-year, donor-funded initiative to strengthen disaster risk governance systems across five African nations.</p>
+          <div class="flag-meta">
+            <div class="m"><i class="bi bi-currency-dollar"></i> USD 8.5 Million</div>
+            <div class="m"><i class="bi bi-calendar-range"></i> 5 Years · 2026-2030</div>
+            <div class="m"><i class="bi bi-pin-map"></i> Nigeria · Ghana · Kenya · Rwanda · Senegal</div>
+          </div>
+          <a href="ardgi.html" class="flag-link">Explore the Initiative <i class="bi bi-arrow-right"></i></a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PRACTICE AREAS -->
+  <section class="section">
+    <div class="container">
+      <div class="section-header center" data-aos="fade-up">
+        <span class="eyebrow">Other Practice Areas</span>
+        <h2>Specialist Technical Expertise</h2>
+        <div class="gold-line"></div>
+        <p>Beyond our six strategic pillars, ACDRM brings deep technical expertise across a set of high-demand specialised practice areas.</p>
+      </div>
+      <div class="pa-grid">
+        <div class="pa-card" data-aos="fade-up" data-aos-delay="100">
+          <div class="pa-icon"><i class="bi bi-diagram-3"></i></div>
+          <h3>Humanitarian Coordination &amp; Response</h3>
+          <p>Design and strengthening of inter-agency coordination mechanisms, cluster systems, and humanitarian response architectures for complex emergencies.</p>
+        </div>
+        <div class="pa-card" data-aos="fade-up" data-aos-delay="150">
+          <div class="pa-icon"><i class="bi bi-cloud-drizzle"></i></div>
+          <h3>Climate Risk &amp; Adaptation Planning</h3>
+          <p>Integrating climate risk assessment into national development planning, infrastructure design, and community resilience programmes.</p>
+        </div>
+        <div class="pa-card" data-aos="fade-up" data-aos-delay="200">
+          <div class="pa-icon"><i class="bi bi-radioactive"></i></div>
+          <h3>Nuclear &amp; Radiological Emergency Planning</h3>
+          <p>Specialist advisory on nuclear and radiological hazard preparedness, response planning, and institutional readiness, benchmarked against international safety standards.</p>
+        </div>
+        <div class="pa-card" data-aos="fade-up" data-aos-delay="100">
+          <div class="pa-icon"><i class="bi bi-building-gear"></i></div>
+          <h3>Business Continuity &amp; Organisational Resilience</h3>
+          <p>Supporting institutions to design and implement business continuity management systems that ensure operational resilience during and after disruption.</p>
+        </div>
+        <div class="pa-card" data-aos="fade-up" data-aos-delay="150">
+          <div class="pa-icon"><i class="bi bi-broadcast-pin"></i></div>
+          <h3>Early Warning Systems &amp; Risk Technology</h3>
+          <p>Advisory on the design, integration, and operationalisation of early warning systems, connecting data, technology, and community-level response protocols.</p>
+        </div>
+        <div class="pa-card" data-aos="fade-up" data-aos-delay="200">
+          <div class="pa-icon"><i class="bi bi-clipboard2-pulse"></i></div>
+          <h3>Post-Disaster Needs &amp; Recovery</h3>
+          <p>Post-disaster needs assessments and recovery planning that move institutions from immediate response to durable, systems-led recovery.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="cta-section dark-background">
+    <div class="container">
+      <h2>Find the Right Engagement</h2>
+      <p>Tell us what your institution needs, we'll shape a programme around it.</p>
+      <a href="contact.html" class="btn-cta-gold">Talk to Our Team &rarr;</a>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <img src="../assets/img/logo/logo-white.png" alt="ACDRM, African Centre for Disaster Risk Management" class="footer-logo">
+          <p>Africa's dedicated institution for disaster risk governance, resilience building, and humanitarian leadership.</p>
+          <div class="footer-tagline">Strengthening Systems. Building Resilience.</div>
+        </div>
+        <div class="footer-col">
+          <h4>About</h4>
+          <ul>
+            <li><a href="about.html">Who We Are</a></li>
+            <li><a href="founder.html">Founder Profile</a></li>
+            <li><a href="framework.html">The GIE Framework</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>Our Work</h4>
+          <ul>
+            <li><a href="arlf.html">ARLF Programme</a></li>
+            <li><a href="ardgi.html">ARDGI Programme</a></li>
+            <li><a href="observatory.html">Observatory</a></li>
+            <li><a href="research.html">Publications</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>Connect</h4>
+          <ul>
+            <li><a href="contact.html">Contact</a></li>
+            <li><a href="mailto:africancentre@acdrm.org">africancentre@acdrm.org</a></li>
+            <li><a href="tel:+2348033401017">+234 803 340 1017</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>&copy; 2026 African Centre for Disaster Risk Management. All rights reserved.</p>
+        <div style="display:flex;gap:20px;"><a href="#">Privacy Policy</a><a href="#">Terms of Use</a></div>
+      </div>
+    </div>
+  </footer>
+
+  <script src="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.js"></script>
+  <script src="../assets/js/main.js"></script>
+</body>
+</html>

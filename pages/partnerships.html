@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Partnerships &amp; Track Record - ACDRM</title>
+  <meta name="description" content="Partner with ACDRM, our track record of engagements with governments, multilateral agencies, and development partners, and the donors we are built to work with.">
+  <link rel="icon" href="/favicon.ico" sizes="any">
+  <link rel="icon" type="image/png" href="/assets/img/logo/logo-icon.png">
+  <link rel="apple-touch-icon" href="/assets/img/logo/logo-icon.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.css">
+  <link rel="stylesheet" href="../assets/css/main.css">
+  <style>
+    .page-hero { background: var(--accent-color); padding: 132px 0 72px; text-align: center; }
+    .page-hero .eyebrow { color: var(--gold-color); font-size: 11px; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; display: block; margin-bottom: 16px; }
+    .page-hero h1 { font-size: clamp(32px, 4vw, 52px); font-weight: 800; color: #fff; margin-bottom: 16px; }
+    .page-hero p { font-size: 17px; color: rgba(255,255,255,0.72); max-width: 640px; margin: 0 auto; line-height: 1.7; }
+
+    /* Who we work with */
+    .work-grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 18px; }
+    .work-card { background: #fff; border: 1px solid color-mix(in srgb, var(--accent-color), transparent 90%); border-radius: 14px; padding: 26px 18px; text-align: center; transition: transform .3s, border-color .3s; }
+    .work-card:hover { transform: translateY(-4px); border-color: var(--gold-color); }
+    .work-card .wi { width: 52px; height: 52px; border-radius: 13px; background: color-mix(in srgb, var(--green-color), transparent 88%); display: flex; align-items: center; justify-content: center; margin: 0 auto 16px; }
+    .work-card .wi i { font-size: 23px; color: var(--green-color); }
+    .work-card h3 { font-size: 14.5px; font-weight: 700; color: var(--accent-color); margin: 0; line-height: 1.35; }
+
+    /* Engagements */
+    .eng-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
+    .eng-card { background: #fff; border: 1px solid color-mix(in srgb, var(--accent-color), transparent 90%); border-radius: 16px; overflow: hidden; display: flex; flex-direction: column; transition: transform .3s, border-color .3s, box-shadow .3s; }
+    .eng-card:hover { transform: translateY(-4px); border-color: var(--gold-color); box-shadow: 0 14px 34px rgba(23,59,109,0.08); }
+    .eng-photo { height: 220px; background: var(--ivory-color); overflow: hidden; }
+    .eng-photo img { width: 100%; height: 100%; object-fit: cover; object-position: center top; display: block; }
+    .eng-body { padding: 24px 24px 26px; display: flex; flex-direction: column; flex: 1; }
+    .eng-year { font-size: 11px; font-weight: 700; color: var(--gold-color); letter-spacing: 0.1em; margin-bottom: 8px; }
+    .eng-body h3 { font-size: 17px; font-weight: 700; color: var(--accent-color); margin-bottom: 10px; line-height: 1.35; }
+    .eng-body p { font-size: 14px; line-height: 1.6; color: color-mix(in srgb, var(--charcoal-color), transparent 28%); margin: 0; }
+
+    /* Donor / partner badges */
+    .donor-band { text-align: center; }
+    .donor-badges { display: flex; flex-wrap: wrap; justify-content: center; gap: 12px; max-width: 880px; margin: 0 auto; }
+    .donor-badge { background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.16); border-radius: 9px; padding: 12px 22px; font-size: 14px; font-weight: 600; color: #fff; letter-spacing: 0.01em; }
+
+    /* Partner models */
+    .model-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 22px; }
+    .model-card { border-left: 3px solid var(--gold-color); padding: 6px 0 6px 22px; }
+    .model-card h3 { font-size: 17px; font-weight: 700; color: var(--accent-color); margin-bottom: 6px; }
+    .model-card p { font-size: 14px; line-height: 1.6; color: color-mix(in srgb, var(--charcoal-color), transparent 28%); margin: 0; }
+
+    @media (max-width: 1024px) {
+      .work-grid { grid-template-columns: repeat(3, 1fr); }
+      .eng-grid { grid-template-columns: repeat(2, 1fr); }
+      .model-grid { grid-template-columns: 1fr; }
+    }
+    @media (max-width: 620px) {
+      .work-grid { grid-template-columns: 1fr 1fr; }
+      .eng-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+  <div id="preloader"></div>
+  <button class="scroll-top" aria-label="Scroll to top"><i class="bi bi-arrow-up"></i></button>
+
+  <header class="header scrolled" id="header">
+    <a href="../index.html" class="logo">
+      <img src="../assets/img/logo/logo-color.png" alt="ACDRM, African Centre for Disaster Risk Management" class="logo-lockup">
+    </a>
+    <nav class="navmenu">
+      <ul>
+        <li><a href="about.html">About</a></li>
+        <li><a href="../index.html#pillars">What We Do</a></li>
+        <li><a href="programmes.html">Programmes</a></li>
+        <li><a href="research.html">Research</a></li>
+        <li><a href="partnerships.html" class="active">Partnerships</a></li>
+        <li><a href="contact.html">Contact</a></li>
+      </ul>
+      <a href="contact.html" class="btn-partner">Partner With Us</a>
+    </nav>
+    <button class="mobile-nav-toggle bi bi-list" aria-label="Toggle menu"></button>
+  </header>
+
+  <section class="page-hero">
+    <div class="container">
+      <span class="eyebrow">Partnerships</span>
+      <h1>Built for Partnership</h1>
+      <p>ACDRM is structured for the rigorous demands of multilateral partnerships and donor-funded programme delivery, grounded in a track record of real institutional engagement.</p>
+    </div>
+  </section>
+
+  <!-- WHO WE WORK WITH -->
+  <section class="section">
+    <div class="container">
+      <div class="section-header center" data-aos="fade-up">
+        <span class="eyebrow">Who We Work With</span>
+        <h2>Partners Across the Ecosystem</h2>
+        <div class="gold-line"></div>
+      </div>
+      <div class="work-grid">
+        <div class="work-card" data-aos="fade-up" data-aos-delay="100"><div class="wi"><i class="bi bi-bank"></i></div><h3>Governments</h3></div>
+        <div class="work-card" data-aos="fade-up" data-aos-delay="150"><div class="wi"><i class="bi bi-globe2"></i></div><h3>Multilateral Agencies</h3></div>
+        <div class="work-card" data-aos="fade-up" data-aos-delay="200"><div class="wi"><i class="bi bi-cash-stack"></i></div><h3>Development Partners</h3></div>
+        <div class="work-card" data-aos="fade-up" data-aos-delay="250"><div class="wi"><i class="bi bi-mortarboard"></i></div><h3>Academic Institutions</h3></div>
+        <div class="work-card" data-aos="fade-up" data-aos-delay="300"><div class="wi"><i class="bi bi-people"></i></div><h3>Civil Society</h3></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- TRACK RECORD & ENGAGEMENTS -->
+  <section class="section light-background" id="track-record">
+    <div class="container">
+      <div class="section-header center" data-aos="fade-up">
+        <span class="eyebrow">Track Record &amp; Engagements</span>
+        <h2>Real Institutional Engagement</h2>
+        <div class="gold-line"></div>
+        <p>From validating Nigeria's first NEMA Strategic Plan to convening national policy dialogue, selected engagements led by ACDRM and its leadership, including the Refresh 1.0 Strategy Development Retreat (February 2024).</p>
+      </div>
+      <div class="eng-grid">
+        <div class="eng-card" data-aos="fade-up" data-aos-delay="100">
+          <div class="eng-photo"><img src="../assets/img/projects/project-5.jpg" alt="NEMA Strategic Plan engagement"></div>
+          <div class="eng-body">
+            <div class="eng-year">2025</div>
+            <h3>NEMA Strategic Plan (2025-2029) Validation Workshop</h3>
+            <p>Delivered the strategic overview of Nigeria's first-ever NEMA Strategic Plan to agency management and key stakeholders, convened under the leadership of the Director-General, Mrs. Zubaida Umar.</p>
+          </div>
+        </div>
+        <div class="eng-card" data-aos="fade-up" data-aos-delay="200">
+          <div class="eng-photo"><img src="../assets/img/projects/project-2.jpg" alt="CSEA institutional collaboration"></div>
+          <div class="eng-body">
+            <div class="eng-year">2025</div>
+            <h3>CSEA Institutional Collaboration</h3>
+            <p>Received a delegation from the Centre for the Study of the Economies of Africa (CSEA) and presented institutional publications on disaster management &amp; humanitarian action, advancing ACDRM's research and policy engagement agenda.</p>
+          </div>
+        </div>
+        <div class="eng-card" data-aos="fade-up" data-aos-delay="300">
+          <div class="eng-photo"><img src="../assets/img/projects/project-3.jpg" alt="Decolonisation and Anti-Racism Conference"></div>
+          <div class="eng-body">
+            <div class="eng-year">2024</div>
+            <h3>Decolonisation &amp; Anti-Racism Conference</h3>
+            <p>Convened by Centre LSD and funded by Christian Aid Nigeria. Dr. Emenike Umesi served as Keynote Speaker and Panellist, addressing decolonisation frameworks and colonial mindsets in aid delivery.</p>
+          </div>
+        </div>
+        <div class="eng-card" data-aos="fade-up" data-aos-delay="100">
+          <div class="eng-photo"><img src="../assets/img/projects/project-4.jpg" alt="7th Annual Leadership Lecture and Graduation, Warri"></div>
+          <div class="eng-body">
+            <div class="eng-year">2024</div>
+            <h3>7th Annual Leadership Lecture &amp; Graduation, Warri</h3>
+            <p>At the Warri Leadership School (Centre LSD), Dr. Umesi delivered the principal address on leadership, institutional resilience, and strategic development to leaders from across the Niger Delta region.</p>
+          </div>
+        </div>
+        <div class="eng-card" data-aos="fade-up" data-aos-delay="200">
+          <div class="eng-photo"><img src="../assets/img/projects/project-1.jpg" alt="Partnership and community engagement"></div>
+          <div class="eng-body">
+            <div class="eng-year">Engagement</div>
+            <h3>Stakeholder &amp; Community Engagement</h3>
+            <p>ACDRM leadership in partnership engagement and recognition with development and community organisations, reflecting our commitment to collaboration at every level of the resilience ecosystem.</p>
+          </div>
+        </div>
+        <div class="eng-card" data-aos="fade-up" data-aos-delay="300">
+          <div class="eng-photo"><img src="../assets/img/hero/hero-2.jpg" alt="High-level governance and leadership panel"></div>
+          <div class="eng-body">
+            <div class="eng-year">2024</div>
+            <h3>Refresh 1.0, Strategy Development Retreat</h3>
+            <p>A foundational strategy development retreat (6-7 February 2024) shaping ACDRM's institutional direction, governance approach, and continental programme architecture.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- DONORS / STRATEGIC PARTNERS -->
+  <section class="section dark-background">
+    <div class="container donor-band">
+      <div class="section-header center" data-aos="fade-up">
+        <span class="eyebrow" style="color:var(--gold-color);">Target Donors &amp; Strategic Partners</span>
+        <h2 style="color:#fff;">The Institutions We Are Built to Work With</h2>
+        <p style="color:rgba(255,255,255,0.7); margin:0 auto;">ACDRM's flagship programmes are structured for engagement with leading multilateral, bilateral, and philanthropic partners.</p>
+      </div>
+      <div class="logo-marquee" data-aos="fade-up" data-aos-delay="100">
+        <div class="logo-marquee-track">
+          <div class="logo-chip"><img src="../assets/img/partners/world-bank.svg" alt="World Bank"></div>
+          <div class="logo-chip"><span class="logo-text-fallback">AfDB</span></div>
+          <div class="logo-chip"><img src="../assets/img/partners/undp.svg" alt="UNDP"></div>
+          <div class="logo-chip"><img src="../assets/img/partners/eu.svg" alt="European Union"></div>
+          <div class="logo-chip"><img src="../assets/img/partners/usaid.svg" alt="USAID"></div>
+          <div class="logo-chip"><span class="logo-text-fallback">FCDO</span></div>
+          <div class="logo-chip"><span class="logo-text-fallback">Rockefeller Foundation</span></div>
+          <div class="logo-chip"><img src="../assets/img/partners/african-union.svg" alt="African Union"></div>
+          <div class="logo-chip"><span class="logo-text-fallback">UNDRR</span></div>
+          <div class="logo-chip"><span class="logo-text-fallback">Regional Economic Communities</span></div>
+          <div class="logo-chip"><span class="logo-text-fallback">Universities &amp; Research</span></div>
+          <div class="logo-chip"><img src="../assets/img/partners/world-bank.svg" alt="World Bank"></div>
+          <div class="logo-chip"><span class="logo-text-fallback">AfDB</span></div>
+          <div class="logo-chip"><img src="../assets/img/partners/undp.svg" alt="UNDP"></div>
+          <div class="logo-chip"><img src="../assets/img/partners/eu.svg" alt="European Union"></div>
+          <div class="logo-chip"><img src="../assets/img/partners/usaid.svg" alt="USAID"></div>
+          <div class="logo-chip"><span class="logo-text-fallback">FCDO</span></div>
+          <div class="logo-chip"><span class="logo-text-fallback">Rockefeller Foundation</span></div>
+          <div class="logo-chip"><img src="../assets/img/partners/african-union.svg" alt="African Union"></div>
+          <div class="logo-chip"><span class="logo-text-fallback">UNDRR</span></div>
+          <div class="logo-chip"><span class="logo-text-fallback">Regional Economic Communities</span></div>
+          <div class="logo-chip"><span class="logo-text-fallback">Universities &amp; Research</span></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- HOW TO PARTNER -->
+  <section class="section">
+    <div class="container">
+      <div class="section-header center" data-aos="fade-up">
+        <span class="eyebrow">How to Partner</span>
+        <h2>Ways to Work With ACDRM</h2>
+        <div class="gold-line"></div>
+      </div>
+      <div class="model-grid">
+        <div class="model-card" data-aos="fade-up" data-aos-delay="100">
+          <h3>Programme Co-Financing</h3>
+          <p>Fund or co-finance flagship programmes such as ARDGI and the African Resilience Leadership Fellowship.</p>
+        </div>
+        <div class="model-card" data-aos="fade-up" data-aos-delay="200">
+          <h3>Advisory &amp; Technical Partnership</h3>
+          <p>Commission governance diagnostics, policy design, and institutional strengthening for your agency or country.</p>
+        </div>
+        <div class="model-card" data-aos="fade-up" data-aos-delay="300">
+          <h3>Research &amp; Knowledge Collaboration</h3>
+          <p>Partner on applied research, risk profiling, and the Annual African Disaster Risk Report through the Observatory.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="cta-section dark-background">
+    <div class="container">
+      <h2>Let's Build Resilience Together</h2>
+      <p>Governments, donors, and institutions, ACDRM is open for partnership.</p>
+      <a href="contact.html" class="btn-cta-gold">Become a Partner &rarr;</a>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <img src="../assets/img/logo/logo-white.png" alt="ACDRM, African Centre for Disaster Risk Management" class="footer-logo">
+          <p>Africa's dedicated institution for disaster risk governance, resilience building, and humanitarian leadership.</p>
+          <div class="footer-tagline">Strengthening Systems. Building Resilience.</div>
+        </div>
+        <div class="footer-col">
+          <h4>About</h4>
+          <ul>
+            <li><a href="about.html">Who We Are</a></li>
+            <li><a href="founder.html">Founder Profile</a></li>
+            <li><a href="framework.html">The GIE Framework</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>Our Work</h4>
+          <ul>
+            <li><a href="programmes.html">Programmes</a></li>
+            <li><a href="research.html">Research &amp; Publications</a></li>
+            <li><a href="partnerships.html">Partnerships</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>Connect</h4>
+          <ul>
+            <li><a href="contact.html">Contact</a></li>
+            <li><a href="mailto:africancentre@acdrm.org">africancentre@acdrm.org</a></li>
+            <li><a href="tel:+2348033401017">+234 803 340 1017</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>&copy; 2026 African Centre for Disaster Risk Management. All rights reserved.</p>
+        <div style="display:flex;gap:20px;"><a href="#">Privacy Policy</a><a href="#">Terms of Use</a></div>
+      </div>
+    </div>
+  </footer>
+
+  <script src="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.js"></script>
+  <script src="../assets/js/main.js"></script>
+</body>
+</html>

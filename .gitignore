@@ -1,0 +1,20 @@
+# ── OS / editor cruft ──────────────────────────────
+.DS_Store
+Thumbs.db
+desktop.ini
+*.tmp
+
+# ── Internal documents (NOT part of the website) ───
+# The brand manual is marked "internal use only"; the company profile is internal too.
+Company DocumentReadme/
+
+# ── Heavy ORIGINAL source images ───────────────────
+# The web-optimised versions used by the site (hero-*.jpg, project-*.jpg, founder.jpg,
+# team/iheoma-job.jpg, logo-*.png, partners/*) ARE committed. These raw originals are not.
+assets/img/Project Images/
+assets/img/Project Manager/
+assets/img/founder/Director Prof. Pic. .PNG
+assets/img/hero/1.png
+assets/img/hero/2.png
+assets/img/hero/3.png
+assets/img/hero/4.png

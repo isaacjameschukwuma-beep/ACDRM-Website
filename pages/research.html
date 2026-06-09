@@ -1,0 +1,367 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Research &amp; Publications - ACDRM</title>
+  <meta name="description" content="ACDRM's research and knowledge programme, publications, the African Disaster Risk &amp; Resilience Observatory, and the Annual African Disaster Risk Report.">
+  <link rel="icon" href="/favicon.ico" sizes="any">
+  <link rel="icon" type="image/png" href="/assets/img/logo/logo-icon.png">
+  <link rel="apple-touch-icon" href="/assets/img/logo/logo-icon.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.css">
+  <link rel="stylesheet" href="../assets/css/main.css">
+  <style>
+    .page-hero { background: var(--accent-color); padding: 132px 0 72px; text-align: center; }
+    .page-hero .eyebrow { color: var(--gold-color); font-size: 11px; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; display: block; margin-bottom: 16px; }
+    .page-hero h1 { font-size: clamp(32px, 4vw, 52px); font-weight: 800; color: #fff; margin-bottom: 16px; }
+    .page-hero p { font-size: 17px; color: rgba(255,255,255,0.72); max-width: 640px; margin: 0 auto; line-height: 1.7; }
+
+    /* Knowledge stats */
+    .kstats { display: grid; grid-template-columns: repeat(4, 1fr); gap: 24px; }
+    .kstat { text-align: center; padding: 8px; }
+    .kstat .n { font-size: clamp(34px, 4vw, 46px); font-weight: 800; color: var(--gold-color); line-height: 1; font-family: var(--heading-font); }
+    .kstat .l { font-size: 13px; font-weight: 600; color: color-mix(in srgb, var(--charcoal-color), transparent 30%); margin-top: 10px; letter-spacing: 0.02em; }
+
+    /* Publications */
+    .pub-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
+    .pub-card { background: #fff; border: 1px solid color-mix(in srgb, var(--accent-color), transparent 90%); border-radius: 16px; padding: 30px 28px; display: flex; flex-direction: column; transition: transform .3s, border-color .3s, box-shadow .3s; }
+    .pub-card:hover { transform: translateY(-4px); border-color: var(--gold-color); box-shadow: 0 14px 34px rgba(23,59,109,0.08); }
+    .pub-tag { align-self: flex-start; font-size: 10px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; padding: 5px 11px; border-radius: 5px; margin-bottom: 18px; }
+    .pub-tag.book { background: color-mix(in srgb, var(--accent-color), transparent 90%); color: var(--accent-color); }
+    .pub-tag.journal { background: color-mix(in srgb, var(--green-color), transparent 88%); color: var(--green-color); }
+    .pub-card h3 { font-size: 17px; font-weight: 700; color: var(--accent-color); line-height: 1.4; margin-bottom: 14px; }
+    .pub-card .meta { margin-top: auto; font-size: 13px; color: color-mix(in srgb, var(--charcoal-color), transparent 40%); }
+    .pub-card .meta .pub { color: var(--green-color); font-weight: 600; }
+    .pub-tag.article { background: color-mix(in srgb, var(--gold-color), transparent 86%); color: color-mix(in srgb, var(--gold-color), black 18%); }
+    .pub-tag.blog { background: color-mix(in srgb, var(--accent-color), transparent 88%); color: var(--accent-color); }
+    .pub-card .pub-link { margin-top: 14px; font-size: 13px; font-weight: 600; color: var(--accent-color); display: inline-flex; align-items: center; gap: 6px; transition: gap .2s; text-decoration: none; }
+    .pub-card .pub-link:hover { gap: 10px; }
+    /* Research library tabs */
+    .research-tabs { display: flex; flex-wrap: wrap; gap: 10px; justify-content: center; margin-bottom: 40px; }
+    .research-tabs button { font-family: var(--nav-font); font-size: 13px; font-weight: 600; color: var(--charcoal-color); background: #fff; border: 1.5px solid color-mix(in srgb, var(--accent-color), transparent 86%); border-radius: 30px; padding: 10px 26px; cursor: pointer; transition: all .2s; }
+    .research-tabs button:hover { border-color: var(--gold-color); color: var(--accent-color); }
+    .research-tabs button.active { background: var(--accent-color); color: #fff; border-color: var(--accent-color); }
+    .research-panel { display: none; }
+    .research-panel.active { display: block; }
+
+    /* Observatory feature */
+    .obs-feature { display: grid; grid-template-columns: 1fr 1fr; gap: 56px; align-items: center; }
+    .obs-text h2 { font-size: clamp(26px, 3vw, 36px); font-weight: 800; color: var(--accent-color); margin-bottom: 16px; }
+    .obs-text p { font-size: 16px; line-height: 1.8; color: color-mix(in srgb, var(--charcoal-color), transparent 20%); margin-bottom: 20px; }
+    .obs-func { display: flex; flex-direction: column; gap: 12px; margin-bottom: 26px; }
+    .obs-func .f { display: flex; align-items: center; gap: 12px; font-size: 15px; color: var(--charcoal-color); }
+    .obs-func .f i { color: var(--green-color); font-size: 18px; }
+    .obs-card { background: var(--accent-color); border-radius: 20px; padding: 44px 40px; color: #fff; }
+    .obs-card .badge { font-size: 11px; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: var(--gold-color); margin-bottom: 18px; }
+    .obs-card h3 { font-size: 24px; font-weight: 800; color: #fff; margin-bottom: 14px; line-height: 1.3; }
+    .obs-card p { font-size: 15px; line-height: 1.7; color: rgba(255,255,255,0.72); margin-bottom: 24px; }
+    .obs-partners { font-size: 12px; color: rgba(255,255,255,0.55); border-top: 1px solid rgba(255,255,255,0.14); padding-top: 18px; }
+    .obs-partners strong { color: rgba(255,255,255,0.85); font-weight: 600; }
+
+    /* News / insights */
+    .news-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
+    .news-card { background: #fff; border: 1px solid color-mix(in srgb, var(--accent-color), transparent 92%); border-radius: 14px; overflow: hidden; transition: transform .3s, box-shadow .3s; }
+    .news-card:hover { transform: translateY(-4px); box-shadow: 0 12px 30px rgba(23,59,109,0.08); }
+    .news-photo { height: 170px; overflow: hidden; background: var(--ivory-color); }
+    .news-photo img { width: 100%; height: 100%; object-fit: cover; display: block; }
+    .news-body { padding: 22px; }
+    .news-cat { font-size: 10px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: var(--green-color); }
+    .news-body h3 { font-size: 16px; font-weight: 700; color: var(--accent-color); margin: 10px 0 8px; line-height: 1.4; }
+    .news-body p { font-size: 13.5px; line-height: 1.6; color: color-mix(in srgb, var(--charcoal-color), transparent 30%); margin: 0; }
+
+    @media (max-width: 1024px) {
+      .kstats { grid-template-columns: repeat(2, 1fr); gap: 32px; }
+      .pub-grid, .news-grid { grid-template-columns: repeat(2, 1fr); }
+      .obs-feature { grid-template-columns: 1fr; gap: 36px; }
+    }
+    @media (max-width: 600px) {
+      .pub-grid, .news-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+  <div id="preloader"></div>
+  <button class="scroll-top" aria-label="Scroll to top"><i class="bi bi-arrow-up"></i></button>
+
+  <header class="header scrolled" id="header">
+    <a href="../index.html" class="logo">
+      <img src="../assets/img/logo/logo-color.png" alt="ACDRM, African Centre for Disaster Risk Management" class="logo-lockup">
+    </a>
+    <nav class="navmenu">
+      <ul>
+        <li><a href="about.html">About</a></li>
+        <li><a href="../index.html#pillars">What We Do</a></li>
+        <li><a href="programmes.html">Programmes</a></li>
+        <li><a href="research.html" class="active">Research</a></li>
+        <li><a href="partnerships.html">Partnerships</a></li>
+        <li><a href="contact.html">Contact</a></li>
+      </ul>
+      <a href="contact.html" class="btn-partner">Partner With Us</a>
+    </nav>
+    <button class="mobile-nav-toggle bi bi-list" aria-label="Toggle menu"></button>
+  </header>
+
+  <section class="page-hero">
+    <div class="container">
+      <span class="eyebrow">Research &amp; Knowledge</span>
+      <h1>Evidence That Drives Change</h1>
+      <p>Rigorous, evidence-based research on disaster risk, climate resilience, and humanitarian systems, translated into policy, toolkits, and publications that build institutions.</p>
+    </div>
+  </section>
+
+  <!-- KNOWLEDGE STATS -->
+  <section class="section">
+    <div class="container">
+      <div class="kstats">
+        <div class="kstat" data-aos="fade-up" data-aos-delay="100"><div class="n"><span data-counter="4">4</span></div><div class="l">Published Books</div></div>
+        <div class="kstat" data-aos="fade-up" data-aos-delay="150"><div class="n"><span data-counter="16">16</span></div><div class="l">Peer-Reviewed Journal Publications</div></div>
+        <div class="kstat" data-aos="fade-up" data-aos-delay="200"><div class="n">GIE</div><div class="l">Proprietary Governance Framework</div></div>
+        <div class="kstat" data-aos="fade-up" data-aos-delay="250"><div class="n">1</div><div class="l">Annual African Disaster Risk Report</div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PUBLICATIONS -->
+  <section class="section light-background" id="publications">
+    <div class="container">
+      <div class="section-header center" data-aos="fade-up">
+        <span class="eyebrow">Research Library</span>
+        <h2>Publications, Articles &amp; Blogs</h2>
+        <div class="gold-line"></div>
+        <p>Browse ACDRM's knowledge outputs, choose a category to explore.</p>
+      </div>
+
+      <!-- Tabs -->
+      <div class="research-tabs" data-aos="fade-up">
+        <button class="active" data-tab="published">Published</button>
+        <button data-tab="articles">Articles</button>
+        <button data-tab="blogs">Blogs</button>
+      </div>
+
+      <!-- PUBLISHED -->
+      <div class="research-panel active" id="tab-published">
+        <div class="pub-grid">
+          <div class="pub-card">
+            <span class="pub-tag book">Book</span>
+            <h3>Humanitarian Leadership and Disaster Management</h3>
+            <div class="meta"><span class="pub">Ola Global Publishers</span> · 2025</div>
+          </div>
+          <div class="pub-card">
+            <span class="pub-tag book">Book</span>
+            <h3>Disaster Management and Humanitarian Action</h3>
+            <div class="meta"><span class="pub">Kraft Books</span> · 2024</div>
+          </div>
+          <div class="pub-card">
+            <span class="pub-tag journal">Journal</span>
+            <h3>Governance, Interoperability &amp; Ethical Digital Transformation in Nigeria's Emergency Management System, the GIE Nexus Model</h3>
+            <div class="meta"><span class="pub">Peer-Reviewed Journal Article</span> · 2026</div>
+          </div>
+          <div class="pub-card">
+            <span class="pub-tag journal">Journal</span>
+            <h3>Communication, Cooperation and Coordination: Imperative for Effective Humanitarian Action in Nigeria</h3>
+            <div class="meta"><span class="pub">Global Scientific Journal</span> · 2021</div>
+          </div>
+          <div class="pub-card">
+            <span class="pub-tag journal">Journal</span>
+            <h3>Assessment of Psycho-Social Services for IDPs in Maiduguri, Nigeria</h3>
+            <div class="meta"><span class="pub">Journal of Clinical Research and Reports</span> · 2020</div>
+          </div>
+          <div class="pub-card">
+            <span class="pub-tag journal">Policy</span>
+            <h3>Policy Briefs, Toolkits &amp; Institutional Research Outputs</h3>
+            <div class="meta"><span class="pub">ACDRM Knowledge Series</span> · Ongoing</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ARTICLES -->
+      <div class="research-panel" id="tab-articles">
+        <div class="pub-grid">
+          <div class="pub-card">
+            <span class="pub-tag article">Article</span>
+            <h3>The GIE Nexus Model: A New Blueprint for African Emergency Governance</h3>
+            <div class="meta"><span class="pub">ACDRM Editorial</span> · 2026</div>
+            <a href="article.html" class="pub-link">Read article <i class="bi bi-arrow-right"></i></a>
+          </div>
+          <div class="pub-card">
+            <span class="pub-tag article">Article</span>
+            <h3>From Reactive Response to Systems-Driven Resilience</h3>
+            <div class="meta"><span class="pub">ACDRM Editorial</span> · 2026</div>
+            <a href="article.html" class="pub-link">Read article <i class="bi bi-arrow-right"></i></a>
+          </div>
+          <div class="pub-card">
+            <span class="pub-tag article">Article</span>
+            <h3>Why Capacity Building Is the Foundation of Disaster Governance</h3>
+            <div class="meta"><span class="pub">ACDRM Editorial</span> · 2026</div>
+            <a href="article.html" class="pub-link">Read article <i class="bi bi-arrow-right"></i></a>
+          </div>
+        </div>
+      </div>
+
+      <!-- BLOGS -->
+      <div class="research-panel" id="tab-blogs">
+        <div class="pub-grid">
+          <div class="pub-card">
+            <span class="pub-tag blog">Blog</span>
+            <h3>Validating Nigeria's First NEMA Strategic Plan (2025-2029)</h3>
+            <div class="meta"><span class="pub">News &amp; Insights</span> · 2025</div>
+            <a href="blog.html" class="pub-link">Read on the blog <i class="bi bi-arrow-right"></i></a>
+          </div>
+          <div class="pub-card">
+            <span class="pub-tag blog">Blog</span>
+            <h3>Advancing the Research &amp; Policy Agenda With CSEA</h3>
+            <div class="meta"><span class="pub">News &amp; Insights</span> · 2025</div>
+            <a href="blog.html" class="pub-link">Read on the blog <i class="bi bi-arrow-right"></i></a>
+          </div>
+          <div class="pub-card">
+            <span class="pub-tag blog">Blog</span>
+            <h3>Decolonising Development: ACDRM at the National Dialogue</h3>
+            <div class="meta"><span class="pub">News &amp; Insights</span> · 2024</div>
+            <a href="blog.html" class="pub-link">Read on the blog <i class="bi bi-arrow-right"></i></a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- OBSERVATORY FEATURE -->
+  <section class="section">
+    <div class="container">
+      <div class="obs-feature">
+        <div class="obs-text" data-aos="fade-up">
+          <span class="eyebrow" style="display:inline-flex;align-items:center;gap:8px;font-size:11px;font-weight:600;color:var(--green-color);letter-spacing:0.12em;text-transform:uppercase;margin-bottom:12px;">Flagship Platform</span>
+          <h2>The African Disaster Risk &amp; Resilience Observatory</h2>
+          <p>ACDRM's continental knowledge and analytics platform, built to generate and disseminate the disaster risk intelligence that African governments and institutions need to make better decisions.</p>
+          <div class="obs-func">
+            <div class="f"><i class="bi bi-bar-chart"></i> Risk data &amp; analytics</div>
+            <div class="f"><i class="bi bi-geo-alt"></i> Hazard mapping</div>
+            <div class="f"><i class="bi bi-journal-text"></i> Policy research</div>
+            <div class="f"><i class="bi bi-file-earmark-bar-graph"></i> Annual African Disaster Risk Report</div>
+          </div>
+          <a href="observatory.html" class="btn-outline-hero">Explore the Observatory</a>
+        </div>
+        <div class="obs-card" data-aos="fade-up" data-aos-delay="150">
+          <div class="badge">Annual African Disaster Risk Report</div>
+          <h3>Continental Risk Intelligence, Once a Year</h3>
+          <p>A flagship annual report consolidating disaster risk data, hazard analysis, and policy insight from across the continent, a single authoritative reference for governments and partners.</p>
+          <div class="obs-partners"><strong>Strategic partners:</strong> African Union · UNDRR · World Bank · Regional Economic Communities · Universities</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- NEWS / INSIGHTS (backend-ready feed) -->
+  <section class="section light-background" id="news">
+    <div class="container">
+      <div class="section-header center" data-aos="fade-up">
+        <span class="eyebrow">News &amp; Insights</span>
+        <h2>From the Centre</h2>
+        <div class="gold-line"></div>
+        <p>Latest articles, engagements, and analysis from ACDRM.</p>
+      </div>
+      <div class="news-grid">
+        <div class="news-card" data-aos="fade-up" data-aos-delay="100">
+          <div class="news-photo"><img src="../assets/img/hero/hero-1.jpg" alt="Capacity building workshop"></div>
+          <div class="news-body">
+            <span class="news-cat">Capacity Building</span>
+            <h3>Building the Next Generation of African Disaster Leaders</h3>
+            <p>How ACDRM's training philosophy turns professionals into the people who lead and reform the systems that govern disaster risk.</p>
+          </div>
+        </div>
+        <div class="news-card" data-aos="fade-up" data-aos-delay="200">
+          <div class="news-photo"><img src="../assets/img/projects/project-2.jpg" alt="Policy engagement"></div>
+          <div class="news-body">
+            <span class="news-cat">Policy &amp; Governance</span>
+            <h3>Advancing the Research &amp; Policy Agenda Across Africa</h3>
+            <p>Institutional collaboration and publications that move disaster risk governance from idea to implementation.</p>
+          </div>
+        </div>
+        <div class="news-card" data-aos="fade-up" data-aos-delay="300">
+          <div class="news-photo"><img src="../assets/img/hero/hero-3.jpg" alt="Resilient communities"></div>
+          <div class="news-body">
+            <span class="news-cat">Resilience</span>
+            <h3>The GIE Nexus Model in Practice</h3>
+            <p>Why governance, interoperability, and ethics together form the foundation of durable resilience systems.</p>
+          </div>
+        </div>
+      </div>
+      <div class="text-center mt-5" data-aos="fade-up">
+        <a href="blog.html" class="btn-outline-hero">View All News &amp; Insights</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="cta-section dark-background">
+    <div class="container">
+      <h2>Collaborate on Research</h2>
+      <p>Partner with ACDRM on applied research, risk profiling, and the Annual African Disaster Risk Report.</p>
+      <a href="contact.html" class="btn-cta-gold">Start a Collaboration &rarr;</a>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <img src="../assets/img/logo/logo-white.png" alt="ACDRM, African Centre for Disaster Risk Management" class="footer-logo">
+          <p>Africa's dedicated institution for disaster risk governance, resilience building, and humanitarian leadership.</p>
+          <div class="footer-tagline">Strengthening Systems. Building Resilience.</div>
+        </div>
+        <div class="footer-col">
+          <h4>About</h4>
+          <ul>
+            <li><a href="about.html">Who We Are</a></li>
+            <li><a href="founder.html">Founder Profile</a></li>
+            <li><a href="framework.html">The GIE Framework</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>Our Work</h4>
+          <ul>
+            <li><a href="programmes.html">Programmes</a></li>
+            <li><a href="observatory.html">Observatory</a></li>
+            <li><a href="blog.html">News &amp; Insights</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>Connect</h4>
+          <ul>
+            <li><a href="contact.html">Contact</a></li>
+            <li><a href="mailto:africancentre@acdrm.org">africancentre@acdrm.org</a></li>
+            <li><a href="tel:+2348033401017">+234 803 340 1017</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>&copy; 2026 African Centre for Disaster Risk Management. All rights reserved.</p>
+        <div style="display:flex;gap:20px;"><a href="#">Privacy Policy</a><a href="#">Terms of Use</a></div>
+      </div>
+    </div>
+  </footer>
+
+  <script src="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.js"></script>
+  <script src="../assets/js/main.js"></script>
+  <script>
+    /* Research library tabs: Published / Articles / Blogs */
+    (function () {
+      var tabs = document.querySelectorAll('.research-tabs button');
+      tabs.forEach(function (btn) {
+        btn.addEventListener('click', function () {
+          tabs.forEach(function (b) { b.classList.remove('active'); });
+          btn.classList.add('active');
+          var id = 'tab-' + btn.getAttribute('data-tab');
+          document.querySelectorAll('.research-panel').forEach(function (p) {
+            p.classList.toggle('active', p.id === id);
+          });
+        });
+      });
+    })();
+  </script>
+</body>
+</html>

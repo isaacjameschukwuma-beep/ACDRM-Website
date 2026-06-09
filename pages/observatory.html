@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Observatory - African Disaster Risk &amp; Resilience Observatory | ACDRM</title>
+  <meta name="description" content="The African Disaster Risk &amp; Resilience Observatory, ACDRM's continental knowledge and analytics platform for risk data, hazard mapping, policy research, and the Annual African Disaster Risk Report.">
+  <link rel="icon" href="/favicon.ico" sizes="any">
+  <link rel="icon" type="image/png" href="/assets/img/logo/logo-icon.png">
+  <link rel="apple-touch-icon" href="/assets/img/logo/logo-icon.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.css">
+  <link rel="stylesheet" href="../assets/css/main.css">
+  <style>
+    .prog-hero { position: relative; padding: 150px 0 80px; background: var(--accent-color); overflow: hidden; }
+    .prog-hero::after { content: ''; position: absolute; inset: 0; background: linear-gradient(90deg, var(--accent-color) 38%, rgba(23,59,109,0.78) 100%); z-index: 1; }
+    .prog-hero .bgimg { position: absolute; inset: 0; opacity: 0.26; }
+    .prog-hero .bgimg img { width: 100%; height: 100%; object-fit: cover; }
+    .prog-hero .container { position: relative; z-index: 2; }
+    .prog-hero .acronym-tag { font-size: 12px; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; color: var(--gold-color); margin-bottom: 16px; display: block; }
+    .prog-hero h1 { font-size: clamp(28px, 3.8vw, 46px); font-weight: 800; color: #fff; margin-bottom: 18px; max-width: 780px; line-height: 1.15; }
+    .prog-hero p { font-size: 17px; color: rgba(255,255,255,0.78); max-width: 640px; line-height: 1.7; }
+
+    .overview { max-width: 820px; }
+    .overview p { font-size: 17px; line-height: 1.85; color: color-mix(in srgb, var(--charcoal-color), transparent 15%); margin-bottom: 20px; }
+    .overview strong { color: var(--accent-color); font-weight: 600; }
+
+    .func-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 22px; }
+    .func-card { background: #fff; border: 1px solid color-mix(in srgb, var(--accent-color), transparent 90%); border-radius: 16px; padding: 32px 30px; display: flex; gap: 20px; align-items: flex-start; transition: transform .3s, border-color .3s, box-shadow .3s; }
+    .func-card:hover { transform: translateY(-4px); border-color: var(--gold-color); box-shadow: 0 14px 34px rgba(23,59,109,0.08); }
+    .func-card .fi { width: 54px; height: 54px; border-radius: 13px; background: var(--accent-color); color: var(--gold-color); display: flex; align-items: center; justify-content: center; font-size: 24px; flex-shrink: 0; }
+    .func-card h3 { font-size: 19px; font-weight: 700; color: var(--accent-color); margin-bottom: 8px; }
+    .func-card p { font-size: 14.5px; line-height: 1.65; color: color-mix(in srgb, var(--charcoal-color), transparent 28%); margin: 0; }
+
+    .report-feature { display: grid; grid-template-columns: 1fr 1fr; gap: 56px; align-items: center; }
+    .report-feature .rf-text h2 { font-size: clamp(24px, 3vw, 34px); font-weight: 800; color: var(--accent-color); margin-bottom: 16px; }
+    .report-feature .rf-text p { font-size: 16px; line-height: 1.8; color: color-mix(in srgb, var(--charcoal-color), transparent 20%); margin: 0; }
+    .report-visual { background: var(--accent-color); border-radius: 20px; padding: 50px 44px; text-align: center; }
+    .report-visual i { font-size: 60px; color: var(--gold-color); margin-bottom: 18px; }
+    .report-visual .rv-title { font-size: 20px; font-weight: 800; color: #fff; margin-bottom: 8px; }
+    .report-visual .rv-sub { font-size: 14px; color: rgba(255,255,255,0.65); }
+
+    .partner-band { display: flex; flex-wrap: wrap; justify-content: center; gap: 14px; }
+    .partner-chip { background: #fff; border: 1.5px solid color-mix(in srgb, var(--accent-color), transparent 86%); border-radius: 40px; padding: 12px 24px; font-size: 15px; font-weight: 600; color: var(--accent-color); }
+
+    @media (max-width: 900px) { .func-grid { grid-template-columns: 1fr; } .report-feature { grid-template-columns: 1fr; gap: 32px; } }
+  </style>
+</head>
+<body>
+  <div id="preloader"></div>
+  <button class="scroll-top" aria-label="Scroll to top"><i class="bi bi-arrow-up"></i></button>
+
+  <header class="header scrolled" id="header">
+    <a href="../index.html" class="logo">
+      <img src="../assets/img/logo/logo-color.png" alt="ACDRM, African Centre for Disaster Risk Management" class="logo-lockup">
+    </a>
+    <nav class="navmenu">
+      <ul>
+        <li><a href="about.html">About</a></li>
+        <li><a href="../index.html#pillars">What We Do</a></li>
+        <li><a href="programmes.html">Programmes</a></li>
+        <li><a href="research.html">Research</a></li>
+        <li><a href="partnerships.html">Partnerships</a></li>
+        <li><a href="contact.html">Contact</a></li>
+      </ul>
+      <a href="contact.html" class="btn-partner">Partner With Us</a>
+    </nav>
+    <button class="mobile-nav-toggle bi bi-list" aria-label="Toggle menu"></button>
+  </header>
+
+  <section class="prog-hero">
+    <div class="bgimg"><img src="../assets/img/hero/hero-1.jpg" alt="Disaster risk analytics and knowledge"></div>
+    <div class="container">
+      <span class="acronym-tag">Flagship Programme · Observatory</span>
+      <h1>African Disaster Risk &amp; Resilience Observatory</h1>
+      <p>ACDRM's continental knowledge and analytics platform, built to generate and disseminate the disaster risk intelligence African governments and institutions need to make better decisions.</p>
+    </div>
+  </section>
+
+  <!-- OVERVIEW -->
+  <section class="section">
+    <div class="container">
+      <div class="section-header" data-aos="fade-up">
+        <span class="eyebrow">Overview</span>
+        <h2>Intelligence for Better Decisions</h2>
+        <div class="gold-line"></div>
+      </div>
+      <div class="overview" data-aos="fade-up" data-aos-delay="100">
+        <p>The Observatory is a <strong>continental knowledge and analytics platform</strong>, consolidating disaster risk data, hazard analysis, and policy research into intelligence that decision-makers can act on.</p>
+        <p>By turning fragmented data into clear, comparable insight, the Observatory gives governments, partners, and institutions a shared evidence base for <strong>policy, planning, and investment</strong> in resilience.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- CORE FUNCTIONS -->
+  <section class="section light-background">
+    <div class="container">
+      <div class="section-header center" data-aos="fade-up">
+        <span class="eyebrow">Core Functions</span>
+        <h2>What the Observatory Delivers</h2>
+        <div class="gold-line"></div>
+      </div>
+      <div class="func-grid">
+        <div class="func-card" data-aos="fade-up" data-aos-delay="100"><div class="fi"><i class="bi bi-bar-chart"></i></div><div><h3>Risk Data &amp; Analytics</h3><p>Collecting, structuring, and analysing disaster risk data from across the continent into decision-grade insight.</p></div></div>
+        <div class="func-card" data-aos="fade-up" data-aos-delay="150"><div class="fi"><i class="bi bi-geo-alt"></i></div><div><h3>Hazard Mapping</h3><p>Mapping hazards and exposure to support preparedness, planning, and targeted investment.</p></div></div>
+        <div class="func-card" data-aos="fade-up" data-aos-delay="200"><div class="fi"><i class="bi bi-journal-text"></i></div><div><h3>Policy Research</h3><p>Translating evidence into policy recommendations, briefs, and toolkits for institutional reform.</p></div></div>
+        <div class="func-card" data-aos="fade-up" data-aos-delay="250"><div class="fi"><i class="bi bi-file-earmark-bar-graph"></i></div><div><h3>Annual African Disaster Risk Report</h3><p>A flagship annual report consolidating continental risk intelligence into one authoritative reference.</p></div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ANNUAL REPORT FEATURE -->
+  <section class="section">
+    <div class="container">
+      <div class="report-feature">
+        <div class="rf-text" data-aos="fade-up">
+          <span class="eyebrow" style="display:inline-flex;align-items:center;gap:8px;font-size:11px;font-weight:600;color:var(--green-color);letter-spacing:0.12em;text-transform:uppercase;margin-bottom:12px;">Flagship Output</span>
+          <h2>The Annual African Disaster Risk Report</h2>
+          <p>Once a year, the Observatory publishes a consolidated analysis of disaster risk across Africa, hazard trends, exposure, institutional readiness, and policy insight, giving governments and partners a single, credible reference point for action.</p>
+        </div>
+        <div class="report-visual" data-aos="fade-up" data-aos-delay="150">
+          <i class="bi bi-file-earmark-bar-graph"></i>
+          <div class="rv-title">Annual African Disaster Risk Report</div>
+          <div class="rv-sub">Continental risk intelligence · Published yearly</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- STRATEGIC PARTNERS -->
+  <section class="section light-background">
+    <div class="container">
+      <div class="section-header center" data-aos="fade-up">
+        <span class="eyebrow">Institutional Readiness</span>
+        <h2>Built with the Continent's Leading Institutions in Mind</h2>
+        <div class="gold-line"></div>
+      </div>
+      <div class="logo-marquee" data-aos="fade-up" data-aos-delay="100">
+        <div class="logo-marquee-track">
+          <div class="logo-chip"><img src="../assets/img/partners/african-union.svg" alt="African Union"></div>
+          <div class="logo-chip"><span class="logo-text-fallback">UNDRR</span></div>
+          <div class="logo-chip"><img src="../assets/img/partners/world-bank.svg" alt="World Bank"></div>
+          <div class="logo-chip"><span class="logo-text-fallback">Regional Economic Communities</span></div>
+          <div class="logo-chip"><span class="logo-text-fallback">Universities</span></div>
+          <div class="logo-chip"><img src="../assets/img/partners/african-union.svg" alt="African Union"></div>
+          <div class="logo-chip"><span class="logo-text-fallback">UNDRR</span></div>
+          <div class="logo-chip"><img src="../assets/img/partners/world-bank.svg" alt="World Bank"></div>
+          <div class="logo-chip"><span class="logo-text-fallback">Regional Economic Communities</span></div>
+          <div class="logo-chip"><span class="logo-text-fallback">Universities</span></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="cta-section dark-background">
+    <div class="container">
+      <h2>Partner on the Observatory</h2>
+      <p>Collaborate on data, research, and the Annual African Disaster Risk Report.</p>
+      <a href="contact.html" class="btn-cta-gold">Get Involved &rarr;</a>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <img src="../assets/img/logo/logo-white.png" alt="ACDRM, African Centre for Disaster Risk Management" class="footer-logo">
+          <p>Africa's dedicated institution for disaster risk governance, resilience building, and humanitarian leadership.</p>
+          <div class="footer-tagline">Strengthening Systems. Building Resilience.</div>
+        </div>
+        <div class="footer-col">
+          <h4>About</h4>
+          <ul>
+            <li><a href="about.html">Who We Are</a></li>
+            <li><a href="founder.html">Founder Profile</a></li>
+            <li><a href="framework.html">The GIE Framework</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>Our Work</h4>
+          <ul>
+            <li><a href="arlf.html">ARLF Programme</a></li>
+            <li><a href="ardgi.html">ARDGI Programme</a></li>
+            <li><a href="research.html">Publications</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>Connect</h4>
+          <ul>
+            <li><a href="contact.html">Contact</a></li>
+            <li><a href="mailto:africancentre@acdrm.org">africancentre@acdrm.org</a></li>
+            <li><a href="tel:+2348033401017">+234 803 340 1017</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>&copy; 2026 African Centre for Disaster Risk Management. All rights reserved.</p>
+        <div style="display:flex;gap:20px;"><a href="#">Privacy Policy</a><a href="#">Terms of Use</a></div>
+      </div>
+    </div>
+  </footer>
+
+  <script src="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.js"></script>
+  <script src="../assets/js/main.js"></script>
+</body>
+</html>

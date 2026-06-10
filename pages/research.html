@@ -73,6 +73,12 @@
     .news-body h3 { font-size: 16px; font-weight: 700; color: var(--accent-color); margin: 10px 0 8px; line-height: 1.4; }
     .news-body p { font-size: 13.5px; line-height: 1.6; color: color-mix(in srgb, var(--charcoal-color), transparent 30%); margin: 0; }
 
+    /* Target Pagination Utilities */
+    #pagination-controls { display: flex; justify-content: center; gap: 8px; margin-top: 40px; }
+    #pagination-controls button { font-size: 13px; font-weight: 600; padding: 8px 16px; border-radius: 6px; border: 1px solid #ddd; background: #fff; cursor: pointer; transition: all 0.2s; }
+    #pagination-controls button.active { background: var(--accent-color); color: #fff; border-color: var(--accent-color); }
+    #pagination-controls button:disabled { opacity: 0.5; cursor: not-allowed; }
+
     @media (max-width: 1024px) {
       .kstats { grid-template-columns: repeat(2, 1fr); gap: 32px; }
       .pub-grid, .news-grid { grid-template-columns: repeat(2, 1fr); }
@@ -113,7 +119,6 @@
     </div>
   </section>
 
-  <!-- KNOWLEDGE STATS -->
   <section class="section">
     <div class="container">
       <div class="kstats">
@@ -125,7 +130,6 @@
     </div>
   </section>
 
-  <!-- PUBLICATIONS -->
   <section class="section light-background" id="publications">
     <div class="container">
       <div class="section-header center" data-aos="fade-up">
@@ -135,100 +139,22 @@
         <p>Browse ACDRM's knowledge outputs, choose a category to explore.</p>
       </div>
 
-      <!-- Tabs -->
       <div class="research-tabs" data-aos="fade-up">
-        <button class="active" data-tab="published">Published</button>
+        <button class="active" data-tab="publications">Published</button>
         <button data-tab="articles">Articles</button>
         <button data-tab="blogs">Blogs</button>
       </div>
 
-      <!-- PUBLISHED -->
-      <div class="research-panel active" id="tab-published">
-        <div class="pub-grid">
-          <div class="pub-card">
-            <span class="pub-tag book">Book</span>
-            <h3>Humanitarian Leadership and Disaster Management</h3>
-            <div class="meta"><span class="pub">Ola Global Publishers</span> · 2025</div>
+      <div class="research-panel active" id="research-content-panel">
+        <div class="pub-grid" id="dynamic-grid-target">
           </div>
-          <div class="pub-card">
-            <span class="pub-tag book">Book</span>
-            <h3>Disaster Management and Humanitarian Action</h3>
-            <div class="meta"><span class="pub">Kraft Books</span> · 2024</div>
-          </div>
-          <div class="pub-card">
-            <span class="pub-tag journal">Journal</span>
-            <h3>Governance, Interoperability &amp; Ethical Digital Transformation in Nigeria's Emergency Management System, the GIE Nexus Model</h3>
-            <div class="meta"><span class="pub">Peer-Reviewed Journal Article</span> · 2026</div>
-          </div>
-          <div class="pub-card">
-            <span class="pub-tag journal">Journal</span>
-            <h3>Communication, Cooperation and Coordination: Imperative for Effective Humanitarian Action in Nigeria</h3>
-            <div class="meta"><span class="pub">Global Scientific Journal</span> · 2021</div>
-          </div>
-          <div class="pub-card">
-            <span class="pub-tag journal">Journal</span>
-            <h3>Assessment of Psycho-Social Services for IDPs in Maiduguri, Nigeria</h3>
-            <div class="meta"><span class="pub">Journal of Clinical Research and Reports</span> · 2020</div>
-          </div>
-          <div class="pub-card">
-            <span class="pub-tag journal">Policy</span>
-            <h3>Policy Briefs, Toolkits &amp; Institutional Research Outputs</h3>
-            <div class="meta"><span class="pub">ACDRM Knowledge Series</span> · Ongoing</div>
-          </div>
-        </div>
+        
+        <div id="pagination-controls"></div>
       </div>
 
-      <!-- ARTICLES -->
-      <div class="research-panel" id="tab-articles">
-        <div class="pub-grid">
-          <div class="pub-card">
-            <span class="pub-tag article">Article</span>
-            <h3>The GIE Nexus Model: A New Blueprint for African Emergency Governance</h3>
-            <div class="meta"><span class="pub">ACDRM Editorial</span> · 2026</div>
-            <a href="article.html" class="pub-link">Read article <i class="bi bi-arrow-right"></i></a>
-          </div>
-          <div class="pub-card">
-            <span class="pub-tag article">Article</span>
-            <h3>From Reactive Response to Systems-Driven Resilience</h3>
-            <div class="meta"><span class="pub">ACDRM Editorial</span> · 2026</div>
-            <a href="article.html" class="pub-link">Read article <i class="bi bi-arrow-right"></i></a>
-          </div>
-          <div class="pub-card">
-            <span class="pub-tag article">Article</span>
-            <h3>Why Capacity Building Is the Foundation of Disaster Governance</h3>
-            <div class="meta"><span class="pub">ACDRM Editorial</span> · 2026</div>
-            <a href="article.html" class="pub-link">Read article <i class="bi bi-arrow-right"></i></a>
-          </div>
-        </div>
-      </div>
-
-      <!-- BLOGS -->
-      <div class="research-panel" id="tab-blogs">
-        <div class="pub-grid">
-          <div class="pub-card">
-            <span class="pub-tag blog">Blog</span>
-            <h3>Validating Nigeria's First NEMA Strategic Plan (2025-2029)</h3>
-            <div class="meta"><span class="pub">News &amp; Insights</span> · 2025</div>
-            <a href="blog.html" class="pub-link">Read on the blog <i class="bi bi-arrow-right"></i></a>
-          </div>
-          <div class="pub-card">
-            <span class="pub-tag blog">Blog</span>
-            <h3>Advancing the Research &amp; Policy Agenda With CSEA</h3>
-            <div class="meta"><span class="pub">News &amp; Insights</span> · 2025</div>
-            <a href="blog.html" class="pub-link">Read on the blog <i class="bi bi-arrow-right"></i></a>
-          </div>
-          <div class="pub-card">
-            <span class="pub-tag blog">Blog</span>
-            <h3>Decolonising Development: ACDRM at the National Dialogue</h3>
-            <div class="meta"><span class="pub">News &amp; Insights</span> · 2024</div>
-            <a href="blog.html" class="pub-link">Read on the blog <i class="bi bi-arrow-right"></i></a>
-          </div>
-        </div>
-      </div>
     </div>
   </section>
 
-  <!-- OBSERVATORY FEATURE -->
   <section class="section">
     <div class="container">
       <div class="obs-feature">
@@ -254,7 +180,6 @@
     </div>
   </section>
 
-  <!-- NEWS / INSIGHTS (backend-ready feed) -->
   <section class="section light-background" id="news">
     <div class="container">
       <div class="section-header center" data-aos="fade-up">
@@ -263,39 +188,16 @@
         <div class="gold-line"></div>
         <p>Latest articles, engagements, and analysis from ACDRM.</p>
       </div>
-      <div class="news-grid">
-        <div class="news-card" data-aos="fade-up" data-aos-delay="100">
-          <div class="news-photo"><img src="../assets/img/hero/hero-1.jpg" alt="Capacity building workshop"></div>
-          <div class="news-body">
-            <span class="news-cat">Capacity Building</span>
-            <h3>Building the Next Generation of African Disaster Leaders</h3>
-            <p>How ACDRM's training philosophy turns professionals into the people who lead and reform the systems that govern disaster risk.</p>
-          </div>
-        </div>
-        <div class="news-card" data-aos="fade-up" data-aos-delay="200">
-          <div class="news-photo"><img src="../assets/img/projects/project-2.jpg" alt="Policy engagement"></div>
-          <div class="news-body">
-            <span class="news-cat">Policy &amp; Governance</span>
-            <h3>Advancing the Research &amp; Policy Agenda Across Africa</h3>
-            <p>Institutional collaboration and publications that move disaster risk governance from idea to implementation.</p>
-          </div>
-        </div>
-        <div class="news-card" data-aos="fade-up" data-aos-delay="300">
-          <div class="news-photo"><img src="../assets/img/hero/hero-3.jpg" alt="Resilient communities"></div>
-          <div class="news-body">
-            <span class="news-cat">Resilience</span>
-            <h3>The GIE Nexus Model in Practice</h3>
-            <p>Why governance, interoperability, and ethics together form the foundation of durable resilience systems.</p>
-          </div>
-        </div>
-      </div>
+      
+      <div class="news-grid" id="dynamic-news-target">
+         </div>
+      
       <div class="text-center mt-5" data-aos="fade-up">
-        <a href="blog.html" class="btn-outline-hero">View All News &amp; Insights</a>
+        <a href="#publications" class="btn-outline-hero">View All News &amp; Insights</a>
       </div>
     </div>
   </section>
 
-  <!-- CTA -->
   <section class="cta-section dark-background">
     <div class="container">
       <h2>Collaborate on Research</h2>
@@ -304,7 +206,6 @@
     </div>
   </section>
 
-  <!-- FOOTER -->
   <footer>
     <div class="container">
       <div class="footer-grid">
@@ -347,21 +248,6 @@
 
   <script src="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.js"></script>
   <script src="../assets/js/main.js"></script>
-  <script>
-    /* Research library tabs: Published / Articles / Blogs */
-    (function () {
-      var tabs = document.querySelectorAll('.research-tabs button');
-      tabs.forEach(function (btn) {
-        btn.addEventListener('click', function () {
-          tabs.forEach(function (b) { b.classList.remove('active'); });
-          btn.classList.add('active');
-          var id = 'tab-' + btn.getAttribute('data-tab');
-          document.querySelectorAll('.research-panel').forEach(function (p) {
-            p.classList.toggle('active', p.id === id);
-          });
-        });
-      });
-    })();
-  </script>
+  <script src="../assets/js/research-feed.js"></script>
 </body>
 </html>

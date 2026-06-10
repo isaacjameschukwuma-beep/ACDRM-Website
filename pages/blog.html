@@ -4,10 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>News &amp; Insights - ACDRM</title>
-  <meta name="description" content="News, analysis, and insights from the African Centre for Disaster Risk Management, disaster risk governance, resilience, and humanitarian leadership across Africa.">
-  <link rel="icon" href="/favicon.ico" sizes="any">
   <link rel="icon" type="image/png" href="/assets/img/logo/logo-icon.png">
-  <link rel="apple-touch-icon" href="/assets/img/logo/logo-icon.png">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
@@ -17,58 +14,39 @@
   <style>
     .page-hero { background: var(--accent-color); padding: 132px 0 72px; text-align: center; }
     .page-hero .eyebrow { color: var(--gold-color); font-size: 11px; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; display: block; margin-bottom: 16px; }
-    .page-hero h1 { font-size: clamp(32px, 4vw, 52px); font-weight: 800; color: #fff; margin-bottom: 16px; }
-    .page-hero p { font-size: 17px; color: rgba(255,255,255,0.72); max-width: 620px; margin: 0 auto; line-height: 1.7; }
+    .page-hero h1 { font-size: clamp(28px, 3.5vw, 44px); font-weight: 800; color: #fff; margin-bottom: 16px; max-width: 860px; margin-left: auto; margin-right: auto; line-height: 1.25; }
+    .page-hero .post-meta { font-size: 14px; color: rgba(255,255,255,0.7); display: flex; justify-content: center; gap: 20px; flex-wrap: wrap; }
+    .page-hero .post-meta span { display: inline-flex; align-items: center; gap: 6px; }
 
-    /* Category filter */
-    .blog-filter { display: flex; flex-wrap: wrap; gap: 10px; justify-content: center; margin-bottom: 48px; }
-    .blog-filter button { font-family: var(--nav-font); font-size: 13px; font-weight: 600; color: var(--charcoal-color); background: #fff; border: 1.5px solid color-mix(in srgb, var(--accent-color), transparent 86%); border-radius: 30px; padding: 9px 20px; cursor: pointer; transition: all .2s; }
-    .blog-filter button:hover { border-color: var(--gold-color); color: var(--accent-color); }
-    .blog-filter button.active { background: var(--accent-color); color: #fff; border-color: var(--accent-color); }
+    /* Article Detail Container */
+    .article-container { max-width: 800px; margin: 0 auto; padding: 60px 20px; }
+    .article-cover-frame { width: 100%; height: 450px; border-radius: 20px; overflow: hidden; margin-bottom: 40px; border: 1px solid color-mix(in srgb, var(--accent-color), transparent 90%); }
+    .article-cover-frame img { width: 100%; height: 100%; object-fit: cover; }
+    
+    /* Content Body Styles */
+    .article-rich-text { font-size: 16px; line-height: 1.85; color: var(--charcoal-color); }
+    .article-rich-text p { margin-bottom: 24px; color: color-mix(in srgb, var(--charcoal-color), transparent 15%); }
+    .article-rich-text h2, .article-rich-text h3 { color: var(--accent-color); font-weight: 700; margin-top: 40px; margin-bottom: 16px; }
 
-    /* Featured */
-    .featured { display: grid; grid-template-columns: 1.2fr 1fr; gap: 0; background: #fff; border: 1px solid color-mix(in srgb, var(--accent-color), transparent 90%); border-radius: 20px; overflow: hidden; margin-bottom: 56px; }
-    .featured-photo { min-height: 320px; overflow: hidden; background: var(--ivory-color); }
-    .featured-photo img { width: 100%; height: 100%; object-fit: cover; display: block; }
-    .featured-body { padding: 44px 44px; display: flex; flex-direction: column; justify-content: center; }
-    .featured-body .fcat { font-size: 11px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--green-color); margin-bottom: 14px; }
-    .featured-body h2 { font-size: clamp(22px, 2.6vw, 30px); font-weight: 800; color: var(--accent-color); line-height: 1.25; margin-bottom: 14px; }
-    .featured-body p { font-size: 15.5px; line-height: 1.7; color: color-mix(in srgb, var(--charcoal-color), transparent 25%); margin-bottom: 22px; }
-    .featured-body .fmeta { font-size: 13px; color: color-mix(in srgb, var(--charcoal-color), transparent 45%); margin-bottom: 20px; }
+    /* Fetch State Loader */
+    .spinner-view { display: flex; flex-direction: column; align-items: center; justify-content: center; min-height: 300px; }
+    .spinner { width: 40px; height: 40px; border: 3px solid color-mix(in srgb, var(--accent-color), transparent 80%); border-radius: 50%; border-top-color: var(--gold-color); animation: spin 1s ease-in-out infinite; }
+    @keyframes spin { to { transform: rotate(360deg); } }
 
-    /* Article grid */
-    .blog-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 26px; }
-    .post-card { background: #fff; border: 1px solid color-mix(in srgb, var(--accent-color), transparent 92%); border-radius: 16px; overflow: hidden; display: flex; flex-direction: column; transition: transform .3s, box-shadow .3s, border-color .3s; }
-    .post-card:hover { transform: translateY(-4px); box-shadow: 0 14px 34px rgba(23,59,109,0.08); border-color: var(--gold-color); }
-    .post-photo { height: 190px; overflow: hidden; background: var(--ivory-color); }
-    .post-photo img { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform .5s; }
-    .post-card:hover .post-photo img { transform: scale(1.05); }
-    .post-body { padding: 24px; display: flex; flex-direction: column; flex: 1; }
-    .post-cat { font-size: 10px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: var(--green-color); margin-bottom: 10px; }
-    .post-body h3 { font-size: 17px; font-weight: 700; color: var(--accent-color); line-height: 1.4; margin-bottom: 10px; }
-    .post-body p { font-size: 14px; line-height: 1.6; color: color-mix(in srgb, var(--charcoal-color), transparent 30%); margin-bottom: 18px; }
-    .post-foot { margin-top: auto; display: flex; justify-content: space-between; align-items: center; }
-    .post-date { font-size: 12px; color: color-mix(in srgb, var(--charcoal-color), transparent 50%); }
-    .post-link { font-size: 13px; font-weight: 600; color: var(--accent-color); display: inline-flex; align-items: center; gap: 5px; transition: gap .2s; }
-    .post-link:hover { gap: 9px; }
+    /* Related Articles Grid Framework */
+    .related-articles-section { background: #ffffff; border-top: 1px solid #e2e8f0; padding: 80px 0; }
+    .related-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 30px; margin-top: 32px; }
+    .related-card { background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 12px; overflow: hidden; display: flex; flex-direction: column; transition: transform 0.2s ease, box-shadow 0.2s ease; }
+    .related-card:hover { transform: translateY(-4px); box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.05); }
 
-    /* Backend / empty-state note */
-    .cms-note { margin-top: 48px; background: var(--ivory-color); border: 1px dashed color-mix(in srgb, var(--accent-color), transparent 70%); border-radius: 14px; padding: 26px 30px; display: flex; gap: 16px; align-items: flex-start; }
-    .cms-note i { font-size: 22px; color: var(--gold-color); flex-shrink: 0; margin-top: 2px; }
-    .cms-note p { font-size: 14px; line-height: 1.65; color: color-mix(in srgb, var(--charcoal-color), transparent 25%); margin: 0; }
-    .cms-note strong { color: var(--accent-color); }
-
-    @media (max-width: 1024px) { .blog-grid { grid-template-columns: repeat(2, 1fr); } .featured { grid-template-columns: 1fr; } .featured-photo { min-height: 240px; } }
-    @media (max-width: 600px) { .blog-grid { grid-template-columns: 1fr; } }
+    @media (max-width: 768px) { .article-cover-frame { height: 280px; } }
   </style>
 </head>
 <body>
-  <div id="preloader"></div>
-  <button class="scroll-top" aria-label="Scroll to top"><i class="bi bi-arrow-up"></i></button>
 
   <header class="header scrolled" id="header">
     <a href="../index.html" class="logo">
-      <img src="../assets/img/logo/logo-color.png" alt="ACDRM, African Centre for Disaster Risk Management" class="logo-lockup">
+      <img src="../assets/img/logo/logo-color.png" alt="ACDRM Logo" class="logo-lockup">
     </a>
     <nav class="navmenu">
       <ul>
@@ -81,151 +59,50 @@
       </ul>
       <a href="contact.html" class="btn-partner">Partner With Us</a>
     </nav>
-    <button class="mobile-nav-toggle bi bi-list" aria-label="Toggle menu"></button>
   </header>
 
   <section class="page-hero">
-    <div class="container">
-      <span class="eyebrow">News &amp; Insights</span>
-      <h1>From the Centre</h1>
-      <p>News, analysis, and insight on disaster risk governance, resilience, and humanitarian leadership across Africa.</p>
+    <div class="container" data-aos="fade-up">
+      <span class="eyebrow" id="art-category">Loading Category...</span>
+      <h1 id="art-title">Assembling Article Context...</h1>
+      <div class="post-meta">
+        <span><i class="bi bi-person"></i> <span id="art-author">...</span></span>
+        <span><i class="bi bi-calendar3"></i> <span id="art-date">...</span></span>
+        <span><i class="bi bi-clock"></i> <span id="art-read-time">...</span> min read</span>
+      </div>
     </div>
   </section>
 
-  <!--
-  ════════════════════════════════════════════════════════════════════════════
-   BACKEND INTEGRATION POINT, BLOG / ARTICLES
-   ────────────────────────────────────────────────────────────────────────────
-   This page is a STATIC TEMPLATE. The cards below are placeholders that a
-   backend/CMS (or a fetch() call to an API) will render dynamically.
-
-   Expected article object (JSON) per post:
-     {
-       "id":        "string|number",        // unique id / slug
-       "title":     "string",
-       "slug":      "string",               // -> article.html?slug=...
-       "category":  "string",               // e.g. Governance, Capacity Building, Research
-       "excerpt":   "string",               // 1-2 sentence summary
-       "coverImage":"string (url)",         // /assets/img/blog/<file>.jpg
-       "author":    "string",
-       "date":      "ISO 8601 date",        // rendered as "DD Mon YYYY"
-       "readMins":  "number",
-       "featured":  "boolean",              // one featured post -> hero block
-       "published": "boolean"
-     }
-
-   Render targets:
-     • <div class="featured"> ...     <- the single post where featured === true
-     • <div id="blog-grid">   ...     <- map published posts (featured === false)
-     • Category buttons in .blog-filter filter by article.category
-     • Each "Read" link -> article.html?slug={slug}  (single-post template)
-
-   Admin/upload flow (future): authenticated dashboard -> create/edit/upload
-   cover image -> POST to /api/articles -> appears here on next load.
-  ════════════════════════════════════════════════════════════════════════════
-  -->
-
-  <!-- FEATURED + LISTING -->
-  <section class="section">
-    <div class="container">
-
-      <!-- Category filter (wire to backend categories) -->
-      <div class="blog-filter" data-aos="fade-up">
-        <button class="active" data-filter="all">All</button>
-        <button data-filter="governance">Governance</button>
-        <button data-filter="capacity">Capacity Building</button>
-        <button data-filter="research">Research</button>
-        <button data-filter="resilience">Climate Resilience</button>
-        <button data-filter="news">News</button>
+  <main class="container">
+    <div class="article-container">
+      
+      <div id="loading-state" class="spinner-view">
+        <div class="spinner"></div>
+        <p style="margin-top: 16px; font-size: 14px; color: var(--charcoal-color); opacity: 0.6;">Retrieving registry payload...</p>
       </div>
 
-      <!-- FEATURED POST (featured === true) -->
-      <article class="featured" data-aos="fade-up">
-        <div class="featured-photo"><img src="../assets/img/hero/hero-2.jpg" alt="Featured article"></div>
-        <div class="featured-body">
-          <div class="fcat">Governance</div>
-          <h2>The GIE Nexus Model: A New Blueprint for African Emergency Governance</h2>
-          <p>ACDRM's proprietary Governance-Interoperability-Ethics framework reframes disaster risk as an institutional challenge, and offers a practical roadmap for reform across the continent.</p>
-          <div class="fmeta">ACDRM Editorial · 2026 · 6 min read</div>
-          <a href="article.html" class="btn-primary-hero">Read Article</a>
+      <div id="content-state" style="display: none;">
+        <div class="article-cover-frame" data-aos="fade-up" data-aos-delay="100">
+          <img id="art-cover-img" src="" alt="Article Banner">
         </div>
-      </article>
-
-      <!-- ARTICLE GRID (map published, non-featured posts here) -->
-      <div class="blog-grid" id="blog-grid">
-
-        <article class="post-card" data-category="capacity" data-aos="fade-up" data-aos-delay="100">
-          <div class="post-photo"><img src="../assets/img/hero/hero-1.jpg" alt="Capacity building workshop"></div>
-          <div class="post-body">
-            <div class="post-cat">Capacity Building</div>
-            <h3>Building the Next Generation of African Disaster Leaders</h3>
-            <p>How ACDRM's training philosophy develops professionals who lead and reform the systems that govern disaster risk.</p>
-            <div class="post-foot"><span class="post-date">2026</span><a href="article.html" class="post-link">Read <i class="bi bi-arrow-right"></i></a></div>
-          </div>
+        
+        <article id="art-content-body" class="article-rich-text" data-aos="fade-up" data-aos-delay="200">
         </article>
-
-        <article class="post-card" data-category="governance" data-aos="fade-up" data-aos-delay="200">
-          <div class="post-photo"><img src="../assets/img/projects/project-5.jpg" alt="NEMA engagement"></div>
-          <div class="post-body">
-            <div class="post-cat">Governance</div>
-            <h3>Validating Nigeria's First NEMA Strategic Plan (2025-2029)</h3>
-            <p>Inside the strategic overview delivered to agency leadership, and what a national plan means for disaster governance.</p>
-            <div class="post-foot"><span class="post-date">2025</span><a href="article.html" class="post-link">Read <i class="bi bi-arrow-right"></i></a></div>
-          </div>
-        </article>
-
-        <article class="post-card" data-category="research" data-aos="fade-up" data-aos-delay="300">
-          <div class="post-photo"><img src="../assets/img/projects/project-2.jpg" alt="Research and policy engagement"></div>
-          <div class="post-body">
-            <div class="post-cat">Research</div>
-            <h3>Advancing the Research &amp; Policy Agenda With CSEA</h3>
-            <p>Institutional collaboration and publications that translate evidence into disaster risk policy.</p>
-            <div class="post-foot"><span class="post-date">2025</span><a href="article.html" class="post-link">Read <i class="bi bi-arrow-right"></i></a></div>
-          </div>
-        </article>
-
-        <article class="post-card" data-category="resilience" data-aos="fade-up" data-aos-delay="100">
-          <div class="post-photo"><img src="../assets/img/hero/hero-3.jpg" alt="Resilient communities"></div>
-          <div class="post-body">
-            <div class="post-cat">Climate Resilience</div>
-            <h3>Building Resilient Communities, Before Disaster Strikes</h3>
-            <p>Integrating climate risk into development planning, infrastructure, and community programmes.</p>
-            <div class="post-foot"><span class="post-date">2026</span><a href="article.html" class="post-link">Read <i class="bi bi-arrow-right"></i></a></div>
-          </div>
-        </article>
-
-        <article class="post-card" data-category="news" data-aos="fade-up" data-aos-delay="200">
-          <div class="post-photo"><img src="../assets/img/projects/project-3.jpg" alt="Decolonisation conference"></div>
-          <div class="post-body">
-            <div class="post-cat">News</div>
-            <h3>Decolonising Development: ACDRM at the National Dialogue</h3>
-            <p>The Founding Director's keynote on decolonisation frameworks and localised development leadership.</p>
-            <div class="post-foot"><span class="post-date">2024</span><a href="article.html" class="post-link">Read <i class="bi bi-arrow-right"></i></a></div>
-          </div>
-        </article>
-
-        <article class="post-card" data-category="capacity" data-aos="fade-up" data-aos-delay="300">
-          <div class="post-photo"><img src="../assets/img/projects/project-4.jpg" alt="Leadership lecture"></div>
-          <div class="post-body">
-            <div class="post-cat">Leadership</div>
-            <h3>Leadership &amp; Institutional Resilience in the Niger Delta</h3>
-            <p>Highlights from the 7th Annual Leadership Lecture &amp; Graduation at the Warri Leadership School.</p>
-            <div class="post-foot"><span class="post-date">2024</span><a href="article.html" class="post-link">Read <i class="bi bi-arrow-right"></i></a></div>
-          </div>
-        </article>
-
-      </div>
-
-      <!-- CMS note (remove once backend is connected) -->
-      <div class="cms-note" data-aos="fade-up">
-        <i class="bi bi-info-circle"></i>
-        <p><strong>For developers:</strong> these articles are placeholder content. Connect a backend/CMS to render real posts into the featured block and <code>#blog-grid</code>. See the integration comment in this page's source for the expected article data shape and the <code>article.html</code> single-post template.</p>
       </div>
 
     </div>
+  </main>
+
+  <section class="related-articles-section">
+    <div class="container" data-aos="fade-up">
+      <h3 style="font-family: 'Poppins', sans-serif; font-size: 22px; font-weight: 700; color: #0f172a; margin: 0; text-align: center;">
+        Related Insights &amp; Analysis
+      </h3>
+      <div id="related-grid" class="related-grid">
+        </div>
+    </div>
   </section>
 
-  <!-- CTA -->
   <section class="cta-section dark-background">
     <div class="container">
       <h2>Stay Informed</h2>
@@ -234,12 +111,11 @@
     </div>
   </section>
 
-  <!-- FOOTER -->
   <footer>
     <div class="container">
       <div class="footer-grid">
         <div class="footer-brand">
-          <img src="../assets/img/logo/logo-white.png" alt="ACDRM, African Centre for Disaster Risk Management" class="footer-logo">
+          <img src="../assets/img/logo/logo-white.png" alt="ACDRM Logo" class="footer-logo">
           <p>Africa's dedicated institution for disaster risk governance, resilience building, and humanitarian leadership.</p>
           <div class="footer-tagline">Strengthening Systems. Building Resilience.</div>
         </div>
@@ -274,21 +150,9 @@
       </div>
     </div>
   </footer>
-
-  <!-- Lightweight category filter (works now; backend can replace data source) -->
-  <script>
-    document.querySelectorAll('.blog-filter button').forEach(function (btn) {
-      btn.addEventListener('click', function () {
-        document.querySelectorAll('.blog-filter button').forEach(function (b) { b.classList.remove('active'); });
-        btn.classList.add('active');
-        var f = btn.getAttribute('data-filter');
-        document.querySelectorAll('#blog-grid .post-card').forEach(function (card) {
-          card.style.display = (f === 'all' || card.getAttribute('data-category') === f) ? '' : 'none';
-        });
-      });
-    });
-  </script>
+  
   <script src="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.js"></script>
   <script src="../assets/js/main.js"></script>
+  <script src="../assets/js/blog-detail.js"></script>
 </body>
 </html>

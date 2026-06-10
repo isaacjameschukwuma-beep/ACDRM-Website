@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ACDRM Portal - Administrative Authentication</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+  
+  <style>
+    :root {
+      --bg-dark: #0f172a;
+      --card-bg: #ffffff;
+      --text-main: #1e293b;
+      --text-muted: #64748b;
+      --accent-gold: #d4af37;
+      --accent-gold-hover: #bda032;
+      --border-color: #e2e8f0;
+      --error-bg: #fef2f2;
+      --error-text: #991b1b;
+      --error-border: #f87171;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: 'Inter', sans-serif;
+    }
+
+    body {
+      background: var(--bg-dark);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+      padding: 24px;
+    }
+
+    .login-container {
+      width: 100%;
+      max-width: 440px;
+      animation: fadeIn 0.5s ease-out;
+    }
+
+    .login-card {
+      background: var(--card-bg);
+      padding: 40px;
+      border-radius: 12px;
+      box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.3), 0 8px 10px -6px rgba(0, 0, 0, 0.3);
+      border-bottom: 4px solid var(--accent-gold);
+    }
+
+    .brand-header {
+      text-align: center;
+      margin-bottom: 32px;
+    }
+
+    .brand-header h2 {
+      font-size: 24px;
+      color: var(--text-main);
+      font-weight: 700;
+      letter-spacing: -0.5px;
+      margin-bottom: 6px;
+    }
+
+    .brand-header p {
+      font-size: 14px;
+      color: var(--text-muted);
+    }
+
+    /* Enhanced Form Group Design */
+    .form-group {
+      margin-bottom: 22px;
+      position: relative;
+    }
+
+    .form-group label {
+      display: block;
+      font-size: 13px;
+      font-weight: 600;
+      margin-bottom: 8px;
+      color: var(--text-main);
+    }
+
+    .input-wrapper {
+      position: relative;
+    }
+
+    .input-wrapper i {
+      position: absolute;
+      left: 14px;
+      top: 50%;
+      transform: translateY(-50%);
+      color: var(--text-muted);
+      font-size: 16px;
+      transition: color 0.2s;
+    }
+
+    .form-group input {
+      width: 100%;
+      padding: 12px 14px 12px 42px;
+      border: 1px solid var(--border-color);
+      border-radius: 6px;
+      font-size: 14px;
+      color: var(--text-main);
+      background-color: #f8fafc;
+      transition: all 0.2s ease;
+      outline: none;
+    }
+
+    .form-group input:focus {
+      background-color: #fff;
+      border-color: var(--accent-gold);
+      box-shadow: 0 0 0 3px rgba(212, 175, 55, 0.15);
+    }
+
+    .form-group input:focus + i {
+      color: var(--accent-gold);
+    }
+
+    /* Password Toggle Layout Context overrides */
+    .input-wrapper .toggle-password {
+      left: auto;
+      right: 14px;
+      cursor: pointer;
+      pointer-events: auto;
+    }
+    
+    .input-wrapper .toggle-password:hover {
+      color: var(--text-main);
+    }
+
+    /* Interactive Action States */
+    .btn-login {
+      width: 100%;
+      padding: 14px;
+      background: var(--text-main);
+      color: #fff;
+      font-weight: 600;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      font-size: 14px;
+      transition: all 0.2s ease;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+    }
+
+    .btn-login:hover {
+      background: var(--accent-gold);
+      color: var(--bg-dark);
+    }
+
+    .btn-login:disabled {
+      background: var(--border-color);
+      color: var(--text-muted);
+      cursor: not-allowed;
+    }
+
+    /* Fluid Error Handling UI */
+    .err-banner {
+      background: var(--error-bg);
+      color: var(--error-text);
+      border: 1px solid var(--error-border);
+      padding: 14px;
+      border-radius: 6px;
+      font-size: 13px;
+      margin-bottom: 24px;
+      display: none;
+      align-items: flex-start;
+      gap: 10px;
+      animation: shake 0.4s ease-in-out;
+    }
+
+    .err-banner i {
+      font-size: 16px;
+      margin-top: 1px;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes shake {
+      0%, 100% { transform: translateX(0); }
+      20%, 60% { transform: translateX(-6px); }
+      40%, 80% { transform: translateX(6px); }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="login-container">
+    <div class="login-card">
+      <div class="brand-header">
+        <h2>Portal Login</h2>
+        <p>Administrative Control Access</p>
+      </div>
+      
+      <div id="error-message" class="err-banner">
+        <i class="bi bi-exclamation-octagon-fill"></i>
+        <span id="err-text"></span>
+      </div>
+
+      <form id="login-form">
+        <div class="form-group">
+          <label for="email">Email Address</label>
+          <div class="input-wrapper">
+            <input type="email" id="email" required placeholder="operator@acdrm.org" autocomplete="email">
+            <i class="bi bi-envelope"></i>
+          </div>
+        </div>
+        
+        <div class="form-group">
+          <label for="password">Password</label>
+          <div class="input-wrapper">
+            <input type="password" id="password" required placeholder="••••••••" autocomplete="current-password" style="padding-right: 42px;">
+            <i class="bi bi-lock"></i>
+            <i class="bi bi-eye-slash toggle-password" id="toggle-password"></i>
+          </div>
+        </div>
+        
+        <button type="submit" id="submit-btn" class="btn-login">
+          <span>Verify Identity</span>
+        </button>
+      </form>
+    </div>
+  </div>
+
+  <script src="/admin/assets/js/admin-login.js"></script>
+</body>
+</html> 

@@ -1,0 +1,371 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ACDRM Command Dashboard</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+  <style>
+    :root { 
+      --dark: #0f172a; 
+      --dark-muted: #334155;
+      --gold: #d4af37; 
+      --gold-hover: #b89327;
+      --border: #cbd5e1; 
+      --border-light: #e2e8f0;
+      --bg-surface: #ffffff;
+      --bg-canvas: #f8fafc;
+      --text-main: #1e293b;
+      --text-muted: #64748b;
+      --focus-ring: rgba(212, 175, 55, 0.2);
+    }
+    
+    body { 
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; 
+      margin: 0; 
+      background: var(--bg-canvas); 
+      color: var(--text-main); 
+      -webkit-font-smoothing: antialiased;
+    }
+    
+    /* Premium Header Navigation */
+    .top-bar { 
+      background: var(--dark); 
+      color: #fff; 
+      padding: 16px 40px; 
+      display: flex; 
+      justify-content: space-between; 
+      align-items: center;
+      box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -1px rgba(0, 0, 0, 0.03);
+    }
+    .top-bar h1 { 
+      margin: 0; 
+      font-size: 16px; 
+      font-weight: 700; 
+      text-transform: uppercase;
+      letter-spacing: 1.5px; 
+      color: #f8fafc;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .top-bar h1::before {
+      content: "\f4f0"; /* Bootstrap shield icon */
+      font-family: "bootstrap-icons";
+      color: var(--gold);
+      font-size: 18px;
+    }
+    .btn-logout { 
+      background: rgba(255, 255, 255, 0.03); 
+      color: #94a3b8; 
+      border: 1px solid #334155; 
+      padding: 8px 18px; 
+      border-radius: 6px; 
+      cursor: pointer; 
+      font-size: 12px; 
+      font-weight: 600; 
+      transition: all 0.2s ease;
+    }
+    .btn-logout:hover { 
+      color: #fff; 
+      border-color: #f43f5e;
+      background: #f43f5e;
+    }
+    
+    /* Layout Framework */
+    .workspace { 
+      max-width: 1440px; 
+      margin: 40px auto; 
+      padding: 0 40px; 
+      display: grid; 
+      grid-template-columns: 420px 1fr; 
+      gap: 32px; 
+    }
+    @media (max-width: 1100px) { 
+      .workspace { grid-template-columns: 1fr; padding: 0 20px; margin: 20px auto; } 
+    }
+
+    /* Enterprise Management Panels */
+    .pane-card { 
+      background: var(--bg-surface); 
+      border: 1px solid var(--border-light); 
+      border-radius: 12px; 
+      padding: 32px; 
+      box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.05), 0 1px 2px -1px rgba(0, 0, 0, 0.03);
+    }
+    .pane-card h3 { 
+      margin: 0 0 24px 0; 
+      font-size: 14px; 
+      font-weight: 700; 
+      text-transform: uppercase; 
+      letter-spacing: 1px; 
+      color: var(--dark);
+      border-bottom: 1px solid var(--border-light); 
+      padding-bottom: 12px; 
+    }
+    
+    /* Modern Input Control Blocks */
+    .form-group { margin-bottom: 20px; }
+    .form-group label { 
+      display: block; 
+      font-size: 12px; 
+      font-weight: 600; 
+      margin-bottom: 8px; 
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      color: var(--dark-muted);
+    }
+    .form-group input[type="text"], 
+    .form-group textarea, 
+    .form-group select { 
+      width: 100%; 
+      padding: 12px 14px; 
+      border: 1px solid var(--border-light); 
+      border-radius: 6px; 
+      font-size: 14px; 
+      background: #f8fafc;
+      color: var(--text-main);
+      box-sizing: border-box; 
+      transition: all 0.2s ease;
+    }
+    .form-group input[type="text"]:focus, 
+    .form-group textarea:focus, 
+    .form-group select:focus { 
+      outline: none;
+      border-color: var(--gold);
+      background: var(--bg-surface);
+      box-shadow: 0 0 0 4px var(--focus-ring);
+    }
+    .form-group textarea { height: 110px; resize: vertical; line-height: 1.5; }
+    
+    /* Upgraded File Upload Elements */
+    .form-group input[type="file"] {
+      width: 100%;
+      box-sizing: border-box;
+      background: #f8fafc;
+      border: 2px dashed var(--border);
+      border-radius: 8px;
+      padding: 16px;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      font-size: 13px;
+      color: var(--text-muted);
+    }
+    .form-group input[type="file"]:hover {
+      border-color: var(--gold);
+      background: rgba(214, 175, 55, 0.02);
+    }
+    .form-group input[type="file"]::file-selector-button {
+      background: var(--dark);
+      color: #fff;
+      border: none;
+      padding: 8px 14px;
+      border-radius: 4px;
+      font-size: 12px;
+      font-weight: 600;
+      cursor: pointer;
+      margin-right: 12px;
+      transition: all 0.2s ease;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+    .form-group input[type="file"]::file-selector-button:hover {
+      background: var(--gold);
+      color: var(--dark);
+    }
+    
+    /* Dynamic Form Actions */
+    .btn-submit { 
+      background: var(--dark); 
+      color: #fff; 
+      border: none; 
+      padding: 14px 20px; 
+      font-weight: 600; 
+      border-radius: 6px; 
+      cursor: pointer; 
+      width: 100%; 
+      font-size: 14px; 
+      letter-spacing: 0.5px;
+      transition: all 0.2s ease;
+      margin-top: 8px;
+    }
+    .btn-submit:hover { 
+      background: var(--gold); 
+      color: var(--dark); 
+      box-shadow: 0 4px 12px rgba(212, 175, 55, 0.15);
+    }
+    .btn-cancel { 
+      background: #f1f5f9; 
+      color: #475569; 
+      border: 1px solid var(--border-light); 
+      padding: 12px 20px; 
+      font-weight: 600; 
+      border-radius: 6px; 
+      cursor: pointer; 
+      width: 100%; 
+      font-size: 13px; 
+      margin-top: 10px; 
+      display: none; 
+      transition: all 0.2s ease;
+    }
+    .btn-cancel:hover {
+      background: #e2e8f0;
+      color: var(--dark);
+    }
+
+    /* Enterprise Data Grid Presentation */
+    .content-table { 
+      width: 100%; 
+      border-collapse: separate; 
+      border-spacing: 0;
+      text-align: left; 
+      font-size: 14px; 
+    }
+    .content-table th { 
+      background: #f8fafc; 
+      padding: 16px; 
+      font-weight: 600; 
+      color: var(--text-muted);
+      font-size: 12px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      border-bottom: 1px solid var(--border-light); 
+    }
+    .content-table td { 
+      padding: 16px; 
+      border-bottom: 1px solid #f1f5f9; 
+      vertical-align: middle; 
+    }
+    .content-table tbody tr:last-child td {
+      border-bottom: none;
+    }
+    .content-table tbody tr {
+      transition: background 0.2s ease;
+    }
+    .content-table tbody tr:hover {
+      background: #f8fafc;
+    }
+    
+    /* SaaS Context Status Badges */
+    .badge { 
+      display: inline-flex; 
+      align-items: center;
+      padding: 4px 10px; 
+      font-size: 11px; 
+      font-weight: 600; 
+      border-radius: 4px; 
+      letter-spacing: 0.3px;
+    }
+    .badge-type { background: #f0fdf4; color: #166534; border: 1px solid #bbf7d0; }
+    .badge-status { background: #eff6ff; color: #1e40af; border: 1px solid #bfdbfe; }
+    .badge-status.DRAFT { background: #fff7ed; color: #9a3412; border: 1px solid #fed7aa; }
+
+    /* Compact Interactive Icon Groups */
+    .actions-cluster { display: flex; gap: 6px; }
+    .btn-action { 
+      border: 1px solid var(--border-light); 
+      padding: 8px 12px; 
+      border-radius: 6px; 
+      background: #fff; 
+      cursor: pointer; 
+      font-size: 13px; 
+      color: var(--text-muted);
+      transition: all 0.2s ease;
+    }
+    .btn-action.edit:hover { 
+      background: #eff6ff; 
+      color: #2563eb; 
+      border-color: #bfdbfe; 
+    }
+    .btn-action.delete:hover { 
+      background: #fef2f2; 
+      color: #dc2626; 
+      border-color: #fecaca; 
+    }
+  </style>
+</head>
+<body>
+
+  <div class="top-bar">
+    <h1>ACDRM Control Pane</h1>
+    <button id="logout-trigger" class="btn-logout">Terminate Session</button>
+  </div>
+
+  <div class="workspace">
+    <div class="pane-card">
+      <h3 id="form-title">Create Content Node</h3>
+      <form id="content-form">
+        <input type="hidden" id="content-id">
+        
+        <div class="form-group">
+          <label>Title</label>
+          <input type="text" name="title" id="title" required>
+        </div>
+        
+        <div class="form-group">
+          <label>Description</label>
+          <textarea name="description" id="description" required></textarea>
+        </div>
+        
+        <div class="form-group">
+          <label>Body Text</label>
+          <textarea name="body" id="body"></textarea>
+        </div>
+
+        <div class="form-group">
+          <label>Content Type</label>
+          <select name="type" id="type" required>
+            <option value="BLOG">BLOG</option>
+            <option value="ARTICLE">ARTICLE</option>
+            <option value="PUBLICATION">PUBLICATION</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label>Document Status</label>
+          <select name="status" id="status">
+            <option value="DRAFT">DRAFT</option>
+            <option value="PUBLISHED">PUBLISHED</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label>Cover Image Graphic</label>
+          <input type="file" name="coverImage" id="coverImage" accept="image/*">
+        </div>
+
+        <div class="form-group">
+          <label>Research Document (PDF Asset for publication and assets)</label>
+          <input type="file" name="pdf" id="pdf" accept=".pdf">
+        </div>
+
+        <button type="submit" class="btn-submit" id="submit-payload-btn">Publish Content</button>
+        <button type="button" class="btn-cancel" id="cancel-edit-btn">Revert to Create</button>
+      </form>
+    </div>
+
+    <div class="pane-card">
+      <h3>Contents</h3>
+      <div style="overflow-x: auto;">
+        <table class="content-table">
+          <thead>
+            <tr>
+              <th>Title</th>
+              <th>Type</th>
+              <th>Status</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody id="inventory-table-body">
+            <tr>
+              <td colspan="4" style="text-align: center; color: #a0aec0; padding: 40px 0;">Polling database ecosystem index...</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <script src="/admin/assets/js/admin-dashboard.js"></script>
+</body>
+</html>

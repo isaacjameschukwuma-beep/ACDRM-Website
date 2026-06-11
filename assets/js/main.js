@@ -188,7 +188,7 @@
   const insightsGrid = document.getElementById('insights-grid');
 
   if (insightsGrid) {
-    const API_BASE = 'http://localhost:5000/api/v1'; 
+    const API_BASE = 'https://acdrm-backend.onrender.com/api/v1'; 
 
     const typeLabels = {
       BLOG: 'Blog',

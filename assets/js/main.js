@@ -184,4 +184,50 @@
     counters.forEach(c => observer.observe(c));
   }
 
+  /* ── LATEST INSIGHTS FROM API ────────────────────────────── */
+  const insightsGrid = document.getElementById('insights-grid');
+
+  if (insightsGrid) {
+    const API_BASE = 'http://localhost:5000/api/v1'; 
+
+    const typeLabels = {
+      BLOG: 'Blog',
+      ARTICLE: 'Article',
+      PUBLICATION: 'Publication',
+      PDF: 'PDF',
+    };
+
+    fetch(`${API_BASE}/content/latest`)
+      .then(res => res.json())
+      .then(({ data }) => {
+        if (!data || data.length === 0) {
+          insightsGrid.innerHTML = '<p>No insights available yet.</p>';
+          return;
+        }
+
+        insightsGrid.innerHTML = data.map((item, i) => `
+          <div class="insight-card" data-aos="fade-up" data-aos-delay="${(i + 1) * 100}">
+            <div class="insight-body">
+              <span class="insight-tag">${typeLabels[item.type] || item.type}</span>
+              <h3>${item.title}</h3>
+              <p>${item.description}</p>
+              <div class="insight-meta">
+                <span class="insight-date">
+                  ${new Date(item.publishedAt || item.createdAt).toLocaleDateString('en-GB', { year: 'numeric', month: 'long' })}
+                </span>
+                <a href="#" class="insight-link">Read <i class="bi bi-arrow-right"></i></a>
+              </div>
+            </div>
+          </div>
+        `).join('');
+
+        // Refresh AOS so animations fire on the new cards
+        if (typeof AOS !== 'undefined') AOS.refresh();
+      })
+      .catch(err => {
+        console.error('Failed to load insights:', err);
+        insightsGrid.innerHTML = '<p>Could not load insights at this time.</p>';
+      });
+  }
+
 })();

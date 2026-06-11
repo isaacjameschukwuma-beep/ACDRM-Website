@@ -1,7 +1,5 @@
 document.addEventListener("DOMContentLoaded", () => {
-  const API_BASE_URL = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1'
-    ? 'http://localhost:5000/api/v1'
-    : 'https://acdrm-backend.onrender.com/api/v1';
+  const API_BASE_URL = 'https://acdrm-backend.onrender.com/api/v1';
 
   const loginForm = document.getElementById("login-form");
   const errBanner = document.getElementById("error-message");

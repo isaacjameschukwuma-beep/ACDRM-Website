@@ -1,10 +1,3 @@
-/**
- * ACDRM — African Centre for Disaster Risk Management
- * Main JavaScript | Version 1.0 | June 2026
- * Based on UpScale Bootstrap Template (BootstrapMade)
- * Adapted by Stratagem Africa
- */
-
 (function () {
   'use strict';
 

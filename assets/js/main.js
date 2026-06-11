@@ -215,7 +215,7 @@
                 <span class="insight-date">
                   ${new Date(item.publishedAt || item.createdAt).toLocaleDateString('en-GB', { year: 'numeric', month: 'long' })}
                 </span>
-                <a href="#" class="insight-link">Read <i class="bi bi-arrow-right"></i></a>
+                <a href="pages/research.html" class="insight-link">Read <i class="bi bi-arrow-right"></i></a>
               </div>
             </div>
           </div>

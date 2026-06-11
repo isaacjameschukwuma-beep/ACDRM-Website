@@ -1,7 +1,5 @@
 document.addEventListener("DOMContentLoaded", () => {
-  const API_BASE_URL = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1'
-    ? 'http://localhost:5000/api/v1/content'
-    : 'https://acdrm-backend.onrender.com/api/v1/content';
+  const API_BASE_URL = 'https://acdrm-backend.onrender.com/api/v1/content';
 
   const urlParams = new URLSearchParams(window.location.search);
   // Support both ID tracking and SEO slug matching patterns

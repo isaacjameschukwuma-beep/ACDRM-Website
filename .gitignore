@@ -18,3 +18,7 @@ assets/img/hero/1.png
 assets/img/hero/2.png
 assets/img/hero/3.png
 assets/img/hero/4.png
+branch_structure.json
+temp_auto_push.bat
+temp_interactive_push.bat
+.gitignore

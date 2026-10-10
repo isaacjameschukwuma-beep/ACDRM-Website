@@ -44,6 +44,15 @@ document.addEventListener("DOMContentLoaded", () => {
           : "2026";
       }
 
+      // Cover image (hidden when the publication has none)
+      const coverWrapNode = document.getElementById("pub-cover");
+      const coverImgNode = document.getElementById("pub-cover-img");
+      if (pub.coverImage && coverWrapNode && coverImgNode) {
+        coverImgNode.src = window.acdrmCover(pub.coverImage, 1400);
+        coverImgNode.alt = pub.title;
+        coverWrapNode.hidden = false;
+      }
+
       // 2. Handle the Download Asset Card via Existing DOM Nodes
       const pdfTargetAsset = pub.pdf || pub.pdfUrl || pub.fileAsset;
       const downloadLinkNode = document.getElementById("pub-download-link");
@@ -51,7 +60,12 @@ document.addEventListener("DOMContentLoaded", () => {
 
       if (pdfTargetAsset && downloadLinkNode) {
         downloadLinkNode.href = pdfTargetAsset;
-        if (downloadCardNode) downloadCardNode.style.display = "flex"; 
+        const fileName = `${pub.slug || slugify(pub.title) || "acdrm-publication"}.pdf`;
+        downloadLinkNode.addEventListener("click", (event) => {
+          event.preventDefault();
+          downloadAsPdf(pdfTargetAsset, fileName, downloadLinkNode);
+        });
+        if (downloadCardNode) downloadCardNode.style.display = "flex";
       } else if (downloadCardNode) {
         downloadCardNode.style.display = "none";
       }
@@ -98,6 +112,40 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   }
 
+  function slugify(text) {
+    return (text || "")
+      .toLowerCase()
+      .replace(/[^a-z0-9]+/g, "-")
+      .replace(/^-+|-+$/g, "")
+      .slice(0, 80);
+  }
+
+  // Uploaded PDFs are stored without a ".pdf" extension and served as a
+  // generic file, so phones cannot open them. Fetch the file and save it
+  // as a proper PDF with a readable name. Falls back to the plain link.
+  async function downloadAsPdf(url, fileName, linkNode) {
+    const originalLabel = linkNode.innerHTML;
+    linkNode.innerHTML = '<i class="bi bi-hourglass-split"></i> Preparing...';
+    try {
+      const response = await fetch(url);
+      if (!response.ok) throw new Error(`HTTP Error: ${response.status}`);
+      const blob = new Blob([await response.arrayBuffer()], { type: "application/pdf" });
+      const blobUrl = URL.createObjectURL(blob);
+      const tempLink = document.createElement("a");
+      tempLink.href = blobUrl;
+      tempLink.download = fileName;
+      document.body.appendChild(tempLink);
+      tempLink.click();
+      tempLink.remove();
+      setTimeout(() => URL.revokeObjectURL(blobUrl), 60000);
+    } catch (error) {
+      console.error("PDF download fallback:", error);
+      window.open(url, "_blank");
+    } finally {
+      linkNode.innerHTML = originalLabel;
+    }
+  }
+
   function renderFailureLayoutState(errorMessage) {
     const loadingNode = document.getElementById("loading-state");
     if (loadingNode) {
@@ -132,7 +180,7 @@ document.addEventListener("DOMContentLoaded", () => {
       targetGrid.innerHTML = filtered.map((item, idx) => `
         <a class="rel-card" href="publication.html?id=${item._id || item.id}" data-aos="fade-up" data-aos-delay="${(idx + 1) * 100}">
           <div class="rel-photo">
-            <img src="${item.coverImage || '../assets/img/hero/hero-1.jpg'}" alt="${item.title}">
+            <img src="${window.acdrmCover(item.coverImage, 640, '../assets/img/hero/hero-1.jpg')}" alt="${item.title}" loading="lazy">
           </div>
           <div class="rel-body">
             <div class="rc">${item.category || item.type || 'Publication'}</div>

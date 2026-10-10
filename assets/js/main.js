@@ -184,6 +184,19 @@
     counters.forEach(c => observer.observe(c));
   }
 
+  /* ── CMS COVER IMAGES ────────────────────────────────────── */
+  // Cover URL for a CMS item. Cloudinary images are requested resized and
+  // compressed (f_auto,q_auto,w_N) so large uploads stay fast on phones.
+  // Falls back to a site image when the item has no cover.
+  window.acdrmCover = function (url, width, fallback) {
+    if (!url) return fallback;
+    const marker = '/image/upload/';
+    if (url.includes('res.cloudinary.com') && url.includes(marker)) {
+      return url.replace(marker, `${marker}f_auto,q_auto,c_limit,w_${width}/`);
+    }
+    return url;
+  };
+
   /* ── LATEST INSIGHTS FROM API ────────────────────────────── */
   const insightsGrid = document.getElementById('insights-grid');
 
@@ -205,17 +218,28 @@
           return;
         }
 
+        // Homepage shows a short teaser; the full text lives on the item's page
+        const detailPages = { ARTICLE: 'article.html', BLOG: 'blog.html' };
+        const itemUrl = item => `pages/${detailPages[item.type] || 'publication.html'}?id=${item._id}`;
+        const teaser = (text, max = 150) => {
+          if (!text || text.length <= max) return text || '';
+          return text.slice(0, text.lastIndexOf(' ', max)).replace(/[,.;:]$/, '') + '…';
+        };
+
         insightsGrid.innerHTML = data.map((item, i) => `
           <div class="insight-card" data-aos="fade-up" data-aos-delay="${(i + 1) * 100}">
+            <div class="insight-photo">
+              <img src="${window.acdrmCover(item.coverImage, 640, 'assets/img/hero/hero-1.jpg')}" alt="${item.title}" loading="lazy">
+            </div>
             <div class="insight-body">
               <span class="insight-tag">${typeLabels[item.type] || item.type}</span>
               <h3>${item.title}</h3>
-              <p>${item.description}</p>
+              <p>${teaser(item.description)}</p>
               <div class="insight-meta">
                 <span class="insight-date">
                   ${new Date(item.publishedAt || item.createdAt).toLocaleDateString('en-GB', { year: 'numeric', month: 'long' })}
                 </span>
-                <a href="pages/research.html" class="insight-link">Read <i class="bi bi-arrow-right"></i></a>
+                <a href="${itemUrl(item)}" class="insight-link">Read more <i class="bi bi-arrow-right"></i></a>
               </div>
             </div>
           </div>

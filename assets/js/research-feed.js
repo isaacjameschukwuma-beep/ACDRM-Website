@@ -89,6 +89,9 @@ function compileCardTemplate(item) {
 
   return `
     <div class="pub-card" data-aos="fade-up">
+      <div class="pub-photo">
+        <img src="${window.acdrmCover(item.coverImage, 640, '../assets/img/hero/hero-1.jpg')}" alt="${item.title}" loading="lazy">
+      </div>
       <span class="pub-tag ${cssTag}">${item.type}</span>
       <h3>${item.title}</h3>
       <p class="text-muted small" style="display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden;">
@@ -151,7 +154,7 @@ async function hydrateNewsInsightFeed() {
     targetNewsGrid.innerHTML = payload.documents.map(article => `
       <div class="news-card" data-aos="fade-up">
         <div class="news-photo">
-          <img src="${article.coverImage || '../assets/img/hero/hero-1.jpg'}" alt="${article.title}">
+          <img src="${window.acdrmCover(article.coverImage, 640, '../assets/img/hero/hero-1.jpg')}" alt="${article.title}" loading="lazy">
         </div>
         <div class="news-body">
           <span class="news-cat">${article.status || 'Insight'}</span>

@@ -11,7 +11,7 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   document.title = `${doc.title} - ACDRM`;
-  document.getElementById("pub-registry-tag").textContent = doc.label || "General";
+  document.getElementById("pub-registry-tag").textContent = "General";
   document.getElementById("pub-title").textContent = doc.title;
   document.getElementById("pub-date").textContent =
     new Date(doc.date).toLocaleDateString("en-US", { year: "numeric", month: "long", day: "numeric" });
@@ -49,7 +49,7 @@ document.addEventListener("DOMContentLoaded", () => {
       <a class="rel-card" href="document.html?id=${d.id}">
         <div class="rel-photo"><img src="../${d.cover}" alt="${d.title}" loading="lazy"></div>
         <div class="rel-body">
-          <div class="rc">${d.label || "General"}</div>
+          <div class="rc">General</div>
           <h3>${d.title}</h3>
         </div>
       </a>

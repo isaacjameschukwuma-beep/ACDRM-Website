@@ -132,7 +132,6 @@ function renderGeneralDocs(gridTarget) {
       <div class="pub-photo is-banner">
         <img src="../${doc.cover}" alt="${doc.title}" loading="lazy">
       </div>
-      <span class="pub-tag general">${doc.label || "General"}</span>
       <h3>${doc.title}</h3>
       <p class="text-muted small" style="display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden;">
         ${doc.summary || ""}
@@ -147,7 +146,7 @@ function renderGeneralDocs(gridTarget) {
 
 function renderPaginationControls(pagination) {
   const container = document.getElementById("pagination-controls");
-  if (!pagination || pagination.totalPages <= 1) {
+  if (!pagination || !(pagination.totalPages > 1)) {
     container.innerHTML = "";
     return;
   }

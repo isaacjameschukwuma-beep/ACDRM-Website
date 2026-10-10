@@ -246,7 +246,7 @@
     // General documents (assets/js/general-docs.js) come first and need no backend
     const generalCards = (window.ACDRM_GENERAL_DOCS || []).map(doc => ({
       title: doc.title,
-      label: doc.label || 'General',
+      label: 'General',
       summary: doc.summary,
       cover: doc.cover,
       banner: true,

@@ -7,7 +7,6 @@
 window.ACDRM_GENERAL_DOCS = [
   {
     id: "call-for-chapters-from-response-to-resilience",
-    label: "Call for Chapters",
     title: "Call for Chapters: From Response to Resilience",
     date: "2026-10-11",
     cover: "assets/img/general/call-for-chapters.jpg",

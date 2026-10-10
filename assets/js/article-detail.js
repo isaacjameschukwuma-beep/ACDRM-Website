@@ -12,7 +12,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
   async function hydrateArticlePage() {
     try {
-      const response = await fetch(`${API_BASE_URL}/${articleIdentifier}`);
+      const response = await window.acdrmFetch(`${API_BASE_URL}/${articleIdentifier}`);
       console.log(response)
       
       if (!response.ok) {

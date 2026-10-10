@@ -197,6 +197,30 @@
     return url;
   };
 
+  /* ── BACKEND FETCH WITH RETRY ────────────────────────────── */
+  // The backend sleeps when idle and can take up to a minute to wake.
+  // Retry network failures and "busy / waking" responses for about a minute
+  // before giving up. Other responses (including 404) are returned as-is.
+  const RETRY_DELAYS_MS = [3000, 5000, 8000, 10000, 10000, 12000, 12000];
+  const RETRYABLE_STATUS = [429, 502, 503, 504];
+
+  window.acdrmFetch = async function (url, options) {
+    for (let attempt = 0; ; attempt++) {
+      try {
+        const response = await fetch(url, options);
+        if (!RETRYABLE_STATUS.includes(response.status) || attempt >= RETRY_DELAYS_MS.length) {
+          return response;
+        }
+      } catch (error) {
+        if (attempt >= RETRY_DELAYS_MS.length) throw error;
+      }
+      await new Promise(resolve => setTimeout(resolve, RETRY_DELAYS_MS[attempt]));
+    }
+  };
+
+  window.ACDRM_LOADING_TEXT = 'Our research library is loading. This can take up to a minute, please wait…';
+  window.ACDRM_UNAVAILABLE_TEXT = 'Our research library is temporarily unavailable. Please check back shortly.';
+
   /* ── LATEST INSIGHTS FROM API ────────────────────────────── */
   const insightsGrid = document.getElementById('insights-grid');
 
@@ -210,8 +234,14 @@
       PDF: 'PDF',
     };
 
-    fetch(`${API_BASE}/content/latest`)
-      .then(res => res.json())
+    const loadInsights = () => {
+    insightsGrid.innerHTML = `<p class="cms-status">${window.ACDRM_LOADING_TEXT}</p>`;
+
+    window.acdrmFetch(`${API_BASE}/content/latest`)
+      .then(res => {
+        if (!res.ok) throw new Error(`HTTP ${res.status}`);
+        return res.json();
+      })
       .then(({ data }) => {
         if (!data || data.length === 0) {
           insightsGrid.innerHTML = '<p>No insights available yet.</p>';
@@ -250,8 +280,16 @@
       })
       .catch(err => {
         console.error('Failed to load insights:', err);
-        insightsGrid.innerHTML = '<p>Could not load insights at this time.</p>';
+        insightsGrid.innerHTML = `
+          <div class="cms-status">
+            <p>${window.ACDRM_UNAVAILABLE_TEXT}</p>
+            <button type="button" class="cms-retry">Try again</button>
+          </div>`;
+        insightsGrid.querySelector('.cms-retry').addEventListener('click', loadInsights);
       });
+    };
+
+    loadInsights();
   }
 
 })();

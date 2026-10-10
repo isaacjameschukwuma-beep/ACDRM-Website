@@ -28,19 +28,26 @@ function initResearchEngine() {
   });
 }
 
+let feedRequestId = 0;
+
 async function fetchTabulatedFeed(contentType, page) {
   const gridTarget = document.getElementById("dynamic-grid-target");
-  
+  // A tab click while an earlier request is still retrying must win
+  const requestId = ++feedRequestId;
+
   gridTarget.innerHTML = `
-    <div class="text-center w-100 py-5" style="grid-column: 1 / -1;">
+    <div class="cms-status">
       <div class="spinner-border text-primary" role="status"></div>
-      <p class="text-muted mt-2">Streaming structured data context...</p>
+      <p class="mt-2">${window.ACDRM_LOADING_TEXT}</p>
     </div>
   `;
 
   try {
-    const response = await fetch(`${API_BASE_URL}/feed/${contentType}?page=${page}&limit=${recordsLimit}`);
+    const response = await window.acdrmFetch(`${API_BASE_URL}/feed/${contentType}?page=${page}&limit=${recordsLimit}`);
+    if (requestId !== feedRequestId) return;
+    if (!response.ok) throw new Error(`HTTP ${response.status}`);
     const payload = await response.json();
+    if (requestId !== feedRequestId) return;
 
     if (!payload.success || !payload.documents || payload.documents.length === 0) {
       displayEmptyState(gridTarget, contentType);
@@ -55,12 +62,15 @@ async function fetchTabulatedFeed(contentType, page) {
     if (window.AOS) window.AOS.refresh();
 
   } catch (error) {
-    console.error("Critical Runtime Feed Ingestion Failure:", error);
+    if (requestId !== feedRequestId) return;
+    console.error("Research feed failed to load:", error);
     gridTarget.innerHTML = `
-      <div class="alert alert-danger text-center w-100" style="grid-column: 1 / -1;" role="alert">
-        <i class="bi bi-exclamation-triangle-fill"></i> Data extraction service context dropped. Please attempt to refresh.
+      <div class="cms-status">
+        <p>${window.ACDRM_UNAVAILABLE_TEXT}</p>
+        <button type="button" class="cms-retry">Try again</button>
       </div>
     `;
+    gridTarget.querySelector(".cms-retry").addEventListener("click", () => fetchTabulatedFeed(currentTab, currentPage));
   }
 }
 
@@ -143,7 +153,7 @@ async function hydrateNewsInsightFeed() {
   if (!targetNewsGrid) return;
 
   try {
-    const response = await fetch(`${API_BASE_URL}/feed/articles?page=1&limit=3`);
+    const response = await window.acdrmFetch(`${API_BASE_URL}/feed/articles?page=1&limit=3`);
     const payload = await response.json();
 
     if (!payload.success || !payload.documents || payload.documents.length === 0) {

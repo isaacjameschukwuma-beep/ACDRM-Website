@@ -32,6 +32,10 @@
     .pub-card:hover { transform: translateY(-4px); border-color: var(--gold-color); box-shadow: 0 14px 34px rgba(23,59,109,0.08); }
     .pub-photo { margin: -30px -28px 22px; height: 180px; overflow: hidden; border-radius: 15px 15px 0 0; background: var(--ivory-color); }
     .pub-photo img { width: 100%; height: 100%; object-fit: cover; display: block; }
+    /* Wide banner covers (General) are shown whole rather than cropped */
+    .pub-photo.is-banner { height: auto; }
+    .pub-photo.is-banner img { height: auto; }
+    .pub-tag.general { background: color-mix(in srgb, var(--green-color), transparent 88%); color: var(--green-color); }
     .pub-tag { align-self: flex-start; font-size: 10px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; padding: 5px 11px; border-radius: 5px; margin-bottom: 18px; }
     .pub-tag.book { background: color-mix(in srgb, var(--accent-color), transparent 90%); color: var(--accent-color); }
     .pub-tag.journal { background: color-mix(in srgb, var(--green-color), transparent 88%); color: var(--green-color); }
@@ -145,6 +149,7 @@
         <button class="active" data-tab="publications">Published</button>
         <button data-tab="articles">Articles</button>
         <button data-tab="blogs">Blogs</button>
+        <button data-tab="general">General</button>
       </div>
 
       <div class="research-panel active" id="research-content-panel">
@@ -250,6 +255,7 @@
 
   <script src="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.js"></script>
   <script src="../assets/js/main.js"></script>
+  <script src="../assets/js/general-docs.js"></script>
   <script src="../assets/js/research-feed.js"></script>
 </body>
 </html>

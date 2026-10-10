@@ -234,59 +234,91 @@
       PDF: 'PDF',
     };
 
-    const loadInsights = () => {
-    insightsGrid.innerHTML = `<p class="cms-status">${window.ACDRM_LOADING_TEXT}</p>`;
+    const MAX_CARDS = 3;
+    const detailPages = { ARTICLE: 'article.html', BLOG: 'blog.html' };
 
-    window.acdrmFetch(`${API_BASE}/content/latest`)
-      .then(res => {
-        if (!res.ok) throw new Error(`HTTP ${res.status}`);
-        return res.json();
-      })
-      .then(({ data }) => {
-        if (!data || data.length === 0) {
-          insightsGrid.innerHTML = '<p>No insights available yet.</p>';
-          return;
-        }
+    // Homepage shows a short teaser; the full text lives on the item's page
+    const teaser = (text, max = 150) => {
+      if (!text || text.length <= max) return text || '';
+      return text.slice(0, text.lastIndexOf(' ', max)).replace(/[,.;:]$/, '') + '…';
+    };
 
-        // Homepage shows a short teaser; the full text lives on the item's page
-        const detailPages = { ARTICLE: 'article.html', BLOG: 'blog.html' };
-        const itemUrl = item => `pages/${detailPages[item.type] || 'publication.html'}?id=${item._id}`;
-        const teaser = (text, max = 150) => {
-          if (!text || text.length <= max) return text || '';
-          return text.slice(0, text.lastIndexOf(' ', max)).replace(/[,.;:]$/, '') + '…';
-        };
+    // General documents (assets/js/general-docs.js) come first and need no backend
+    const generalCards = (window.ACDRM_GENERAL_DOCS || []).map(doc => ({
+      title: doc.title,
+      label: doc.label || 'General',
+      summary: doc.summary,
+      cover: doc.cover,
+      banner: true,
+      date: doc.date,
+      url: `pages/document.html?id=${doc.id}`,
+    }));
 
-        insightsGrid.innerHTML = data.map((item, i) => `
+    const backendCard = item => ({
+      title: item.title,
+      label: typeLabels[item.type] || item.type,
+      summary: item.description,
+      cover: window.acdrmCover(item.coverImage, 640, 'assets/img/hero/hero-1.jpg'),
+      banner: false,
+      date: item.publishedAt || item.createdAt,
+      url: `pages/${detailPages[item.type] || 'publication.html'}?id=${item._id}`,
+    });
+
+    const renderCards = (cards, statusHtml = '') => {
+      insightsGrid.innerHTML = cards.slice(0, MAX_CARDS).map((card, i) => `
           <div class="insight-card" data-aos="fade-up" data-aos-delay="${(i + 1) * 100}">
-            <div class="insight-photo">
-              <img src="${window.acdrmCover(item.coverImage, 640, 'assets/img/hero/hero-1.jpg')}" alt="${item.title}" loading="lazy">
+            <div class="insight-photo${card.banner ? ' is-banner' : ''}">
+              <img src="${card.cover}" alt="${card.title}" loading="lazy">
             </div>
             <div class="insight-body">
-              <span class="insight-tag">${typeLabels[item.type] || item.type}</span>
-              <h3>${item.title}</h3>
-              <p>${teaser(item.description)}</p>
+              <span class="insight-tag">${card.label}</span>
+              <h3>${card.title}</h3>
+              <p>${teaser(card.summary)}</p>
               <div class="insight-meta">
                 <span class="insight-date">
-                  ${new Date(item.publishedAt || item.createdAt).toLocaleDateString('en-GB', { year: 'numeric', month: 'long' })}
+                  ${new Date(card.date).toLocaleDateString('en-GB', { year: 'numeric', month: 'long' })}
                 </span>
-                <a href="${itemUrl(item)}" class="insight-link">Read more <i class="bi bi-arrow-right"></i></a>
+                <a href="${card.url}" class="insight-link">Read more <i class="bi bi-arrow-right"></i></a>
               </div>
             </div>
           </div>
-        `).join('');
+        `).join('') + statusHtml;
 
-        // Refresh AOS so animations fire on the new cards
-        if (typeof AOS !== 'undefined') AOS.refresh();
-      })
-      .catch(err => {
-        console.error('Failed to load insights:', err);
-        insightsGrid.innerHTML = `
-          <div class="cms-status">
-            <p>${window.ACDRM_UNAVAILABLE_TEXT}</p>
-            <button type="button" class="cms-retry">Try again</button>
-          </div>`;
-        insightsGrid.querySelector('.cms-retry').addEventListener('click', loadInsights);
-      });
+      // Refresh AOS so animations fire on the new cards
+      if (typeof AOS !== 'undefined') AOS.refresh();
+    };
+
+    const loadInsights = () => {
+      if (generalCards.length) {
+        renderCards(generalCards);
+      } else {
+        insightsGrid.innerHTML = `<p class="cms-status">${window.ACDRM_LOADING_TEXT}</p>`;
+      }
+
+      window.acdrmFetch(`${API_BASE}/content/latest`)
+        .then(res => {
+          if (!res.ok) throw new Error(`HTTP ${res.status}`);
+          return res.json();
+        })
+        .then(({ data }) => {
+          const cards = generalCards.concat((data || []).map(backendCard));
+          if (cards.length === 0) {
+            insightsGrid.innerHTML = '<p>No insights available yet.</p>';
+            return;
+          }
+          renderCards(cards);
+        })
+        .catch(err => {
+          console.error('Failed to load insights:', err);
+          // General documents stay visible; only show the notice when there is nothing else
+          if (generalCards.length) return;
+          insightsGrid.innerHTML = `
+            <div class="cms-status">
+              <p>${window.ACDRM_UNAVAILABLE_TEXT}</p>
+              <button type="button" class="cms-retry">Try again</button>
+            </div>`;
+          insightsGrid.querySelector('.cms-retry').addEventListener('click', loadInsights);
+        });
     };
 
     loadInsights();

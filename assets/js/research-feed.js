@@ -35,6 +35,11 @@ async function fetchTabulatedFeed(contentType, page) {
   // A tab click while an earlier request is still retrying must win
   const requestId = ++feedRequestId;
 
+  if (contentType === "general") {
+    renderGeneralDocs(gridTarget);
+    return;
+  }
+
   gridTarget.innerHTML = `
     <div class="cms-status">
       <div class="spinner-border text-primary" role="status"></div>
@@ -110,6 +115,34 @@ function compileCardTemplate(item) {
       ${interactiveFooter}
     </div>
   `;
+}
+
+// General documents come from assets/js/general-docs.js, not the backend
+function renderGeneralDocs(gridTarget) {
+  const docs = window.ACDRM_GENERAL_DOCS || [];
+  renderPaginationControls({});
+
+  if (docs.length === 0) {
+    displayEmptyState(gridTarget, "general");
+    return;
+  }
+
+  gridTarget.innerHTML = docs.map(doc => `
+    <div class="pub-card" data-aos="fade-up">
+      <div class="pub-photo is-banner">
+        <img src="../${doc.cover}" alt="${doc.title}" loading="lazy">
+      </div>
+      <span class="pub-tag general">${doc.label || "General"}</span>
+      <h3>${doc.title}</h3>
+      <p class="text-muted small" style="display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden;">
+        ${doc.summary || ""}
+      </p>
+      <div class="meta"><span class="pub">ACDRM</span> · ${new Date(doc.date).getFullYear()}</div>
+      <a href="document.html?id=${doc.id}" class="pub-link">View &amp; download <i class="bi bi-arrow-right"></i></a>
+    </div>
+  `).join("");
+
+  if (window.AOS) window.AOS.refresh();
 }
 
 function renderPaginationControls(pagination) {

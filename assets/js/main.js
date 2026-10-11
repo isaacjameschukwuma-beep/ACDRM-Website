@@ -206,7 +206,7 @@
   /* ── NOTICES BELL (homepage) ─────────────────────────────── */
   // Floating bell listing General documents that carry a `notice`
   // (assets/js/general-docs.js). The badge shows how many there are; the
-  // panel opens by itself once per visit so new notices get seen.
+  // panel opens on page load until the visitor closes it.
   const bell = document.getElementById('notice-bell');
   const notices = (window.ACDRM_GENERAL_DOCS || []).filter(doc => doc.notice);
 
@@ -243,13 +243,19 @@
     };
     const remember = () => { try { sessionStorage.setItem('acdrm-notices-seen', '1'); } catch (e) { /* storage blocked */ } };
 
-    btn.addEventListener('click', () => { setOpen(!bell.classList.contains('open')); remember(); });
+    btn.addEventListener('click', () => {
+      const open = !bell.classList.contains('open');
+      setOpen(open);
+      if (!open) remember();
+    });
     bell.querySelector('.notice-close').addEventListener('click', () => { setOpen(false); remember(); });
-    document.addEventListener('keydown', e => { if (e.key === 'Escape') setOpen(false); });
+    document.addEventListener('keydown', e => { if (e.key === 'Escape') { setOpen(false); remember(); } });
 
+    // Open as soon as the page loads, on every homepage visit, until the
+    // visitor closes it (then it stays closed for the rest of their visit)
     let seen = false;
     try { seen = sessionStorage.getItem('acdrm-notices-seen') === '1'; } catch (e) { /* storage blocked */ }
-    if (!seen) setTimeout(() => { setOpen(true); remember(); }, 2500);
+    if (!seen) requestAnimationFrame(() => setOpen(true));
   }
 
   /* ── CMS COVER IMAGES ────────────────────────────────────── */

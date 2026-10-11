@@ -43,7 +43,7 @@
 - Nav: About · What We Do (`/#pillars`) · Programmes · Research · Partnerships · Contact · "Partner With Us" button. The Login link is commented out; admin is reached directly at `/admin/login.html`.
 
 ## 5. Homepage, in order (source: `index.html`)
-1. **Hero:** full-screen background slider (`.hero-slide`, `hero-1..4.jpg`) with blue overlay; eyebrow "Pan-African Resilience Institution"; headline "Strengthening Systems. Building Resilience."; buttons Explore Our Work / Partner With Us; stat "30+ Years of Experience"; "Registered · CAC Nigeria · May 2026". No founder card.
+1. **Hero:** full-screen background slider (`.hero-slide`, `hero-1..4.jpg`) with blue overlay; eyebrow "Pan-African Resilience Institution"; headline "Strengthening Systems. Building Resilience."; buttons Explore Our Work / Partner With Us; stat "30+ Years of Experience"; "Registered · CAC Nigeria" (date removed by user request 11 Oct 2026, e28e255; contact.html still shows "Nigeria · May 2026"). No founder card.
 2. **Stats ticker:** animated wave, infinite scroll: 10+ African Countries Supported · 1,500 Professionals Trained · 50+ Research & Policy · $100M Resilience Financing.
 3. **Six Strategic Pillars** (`#pillars`): Disaster Risk Governance · Capacity Building & Training · Research & Knowledge · Preparedness & Response Systems · Climate Resilience · Disaster Risk Financing.
 4. **Positioning band** ("Our Purpose").

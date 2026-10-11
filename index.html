@@ -185,7 +185,7 @@
       <div class="pillars-layout">
 
         <div class="pillars-media" data-aos="fade-up">
-          <video autoplay muted loop playsinline preload="metadata" poster="assets/img/hero/hero-2.jpg">
+          <video class="autoplay-video" autoplay muted loop playsinline disablepictureinpicture preload="auto" poster="assets/img/hero/meeting-poster.jpg" aria-hidden="true">
             <source src="assets/video/meeting.mp4" type="video/mp4">
           </video>
           <div class="media-cap">
@@ -526,6 +526,9 @@
   <script src="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.js"></script>
 
   <!-- ACDRM Main JS -->
+  <!-- Floating notices bell (filled from assets/js/general-docs.js) -->
+  <div class="notice-bell" id="notice-bell" hidden></div>
+
   <script src="assets/js/general-docs.js"></script>
   <script src="assets/js/main.js"></script>
 

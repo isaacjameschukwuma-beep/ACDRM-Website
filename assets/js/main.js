@@ -184,6 +184,74 @@
     counters.forEach(c => observer.observe(c));
   }
 
+  /* ── SILENT AUTOPLAY VIDEO ───────────────────────────────── */
+  // Phones can refuse autoplay (e.g. iPhone Low Power Mode). Keep trying when
+  // the video is on screen and on the visitor's first touch or scroll.
+  document.querySelectorAll('.autoplay-video').forEach(video => {
+    video.muted = true;
+    const tryPlay = () => { if (video.paused) video.play().catch(() => {}); };
+
+    if ('IntersectionObserver' in window) {
+      new IntersectionObserver(entries => {
+        entries.forEach(entry => entry.isIntersecting ? tryPlay() : video.pause());
+      }, { threshold: 0.25 }).observe(video);
+    } else {
+      tryPlay();
+    }
+
+    ['touchstart', 'scroll', 'click'].forEach(evt =>
+      window.addEventListener(evt, tryPlay, { once: true, passive: true }));
+  });
+
+  /* ── NOTICES BELL (homepage) ─────────────────────────────── */
+  // Floating bell listing General documents that carry a `notice`
+  // (assets/js/general-docs.js). The badge shows how many there are; the
+  // panel opens by itself once per visit so new notices get seen.
+  const bell = document.getElementById('notice-bell');
+  const notices = (window.ACDRM_GENERAL_DOCS || []).filter(doc => doc.notice);
+
+  if (bell && notices.length) {
+    const count = notices.length;
+    bell.innerHTML = `
+      <div class="notice-panel" id="notice-panel" role="dialog" aria-label="Notices">
+        <div class="notice-head">
+          <span>${count === 1 ? 'New notice' : `${count} new notices`}</span>
+          <button type="button" class="notice-close" aria-label="Close notices"><i class="bi bi-x-lg"></i></button>
+        </div>
+        ${notices.map(doc => `
+          <a class="notice-item" href="pages/document.html?id=${doc.id}">
+            <img class="notice-thumb" src="${doc.cover}" alt="" loading="lazy">
+            <span class="notice-text">
+              <strong>${doc.notice.headline}</strong>
+              <span>${doc.notice.text}</span>
+              <em>Read more <i class="bi bi-arrow-right"></i></em>
+            </span>
+          </a>
+        `).join('')}
+      </div>
+      <button type="button" class="notice-btn" aria-controls="notice-panel" aria-expanded="false"
+              aria-label="${count === 1 ? '1 new notice' : `${count} new notices`}">
+        <i class="bi bi-bell-fill"></i>
+        <span class="notice-count">${count > 9 ? '9+' : count}</span>
+      </button>`;
+    bell.hidden = false;
+
+    const btn = bell.querySelector('.notice-btn');
+    const setOpen = open => {
+      bell.classList.toggle('open', open);
+      btn.setAttribute('aria-expanded', String(open));
+    };
+    const remember = () => { try { sessionStorage.setItem('acdrm-notices-seen', '1'); } catch (e) { /* storage blocked */ } };
+
+    btn.addEventListener('click', () => { setOpen(!bell.classList.contains('open')); remember(); });
+    bell.querySelector('.notice-close').addEventListener('click', () => { setOpen(false); remember(); });
+    document.addEventListener('keydown', e => { if (e.key === 'Escape') setOpen(false); });
+
+    let seen = false;
+    try { seen = sessionStorage.getItem('acdrm-notices-seen') === '1'; } catch (e) { /* storage blocked */ }
+    if (!seen) setTimeout(() => { setOpen(true); remember(); }, 2500);
+  }
+
   /* ── CMS COVER IMAGES ────────────────────────────────────── */
   // Cover URL for a CMS item. Cloudinary images are requested resized and
   // compressed (f_auto,q_auto,w_N) so large uploads stay fast on phones.

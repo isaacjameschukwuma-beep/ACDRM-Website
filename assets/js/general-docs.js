@@ -4,6 +4,8 @@
 //   1. Put the PDF in assets/docs/ and a cover (about 1600px wide) in assets/img/general/
 //   2. Add an entry below. `id` becomes the page address: pages/document.html?id=<id>
 //   3. `date` is the upload date. `body` is a list of paragraphs (simple HTML allowed).
+//   4. Optional `notice` puts it in the homepage notification bell. The bell's
+//      number is how many entries have a `notice`; remove it to take one out.
 window.ACDRM_GENERAL_DOCS = [
   {
     id: "call-for-chapters-from-response-to-resilience",
@@ -11,6 +13,10 @@ window.ACDRM_GENERAL_DOCS = [
     date: "2026-10-11",
     cover: "assets/img/general/call-for-chapters.jpg",
     file: "assets/docs/acdrm-call-for-chapters.pdf",
+    notice: {
+      headline: "Call for Chapters",
+      text: "Abstracts are due November 15, 2026. See the themes and how to submit."
+    },
     summary: "ACDRM invites chapter proposals for an edited volume on Nigeria's shift from disaster relief to proactive risk governance, and what Africa can learn from it. Abstracts are due November 15, 2026.",
     body: [
       "<strong>From Response to Resilience: Reform, Anticipation and Inclusion in Disaster Governance.</strong> Nigeria's Institutional Transformation and Africa's Future Horizons. An edited volume convened by the African Centre for Disaster Risk Management, led by Dr. Emenike John Umesi, Founding Director, ACDRM.",

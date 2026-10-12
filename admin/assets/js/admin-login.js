@@ -20,6 +20,30 @@ document.addEventListener("DOMContentLoaded", () => {
     togglePasswordBtn.classList.toggle("bi-eye", clearTextMode);
   });
 
+  // The backend sleeps when idle and can take up to a minute to wake.
+  // Retry while it is unreachable or busy, telling the user what is happening.
+  const RETRY_DELAYS_MS = [3000, 5000, 8000, 10000, 10000, 12000, 12000];
+  const RETRYABLE_STATUS = [429, 502, 503, 504];
+  const SERVER_DOWN_TEXT = "Startinng";
+
+  async function loginWithRetry(credentials) {
+    for (let attempt = 0; ; attempt++) {
+      try {
+        const response = await fetch(`${API_BASE_URL}/auth/login`, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(credentials)
+        });
+        if (!RETRYABLE_STATUS.includes(response.status)) return response;
+      } catch (error) {
+        // Network failure: server asleep or unreachable
+      }
+      if (attempt >= RETRY_DELAYS_MS.length) throw new Error(SERVER_DOWN_TEXT);
+      submitBtn.innerHTML = `<i class="bi bi-arrow-repeat" style="display:inline-block; animation: spin 1s linear infinite;"></i> The server is waking up. This can take up to a minute, please wait…`;
+      await new Promise(resolve => setTimeout(resolve, RETRY_DELAYS_MS[attempt]));
+    }
+  }
+
   // 2. Authentication Transmission Hook Handler
   loginForm.addEventListener("submit", async (e) => {
     e.preventDefault();
@@ -35,13 +59,8 @@ document.addEventListener("DOMContentLoaded", () => {
       submitBtn.disabled = true;
       submitBtn.innerHTML = `<i class="bi bi-arrow-repeat spin" style="display:inline-block; animation: spin 1s linear infinite;"></i> Authenticating Operator...`;
 
-      const response = await fetch(`${API_BASE_URL}/auth/login`, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ email, password })
-      });
-
-      const data = await response.json();
+      const response = await loginWithRetry({ email, password });
+      const data = await response.json().catch(() => ({}));
 
       if (!response.ok) {
         throw new Error(data.message || "Invalid administrative credentials.");

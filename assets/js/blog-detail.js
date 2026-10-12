@@ -14,7 +14,7 @@ document.addEventListener("DOMContentLoaded", () => {
   async function hydrateBlogPage() {
     try {
       // Correct target mapping to single-item document resource endpoint
-      const response = await fetch(`${API_BASE_URL}/${blogIdentifier}`);
+      const response = await window.acdrmFetch(`${API_BASE_URL}/${blogIdentifier}`);
       if (!response.ok) throw new Error(`HTTP Error: ${response.status}`);
       
       const payload = await response.json();

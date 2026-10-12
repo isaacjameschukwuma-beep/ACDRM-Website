@@ -28,19 +28,31 @@ function initResearchEngine() {
   });
 }
 
+let feedRequestId = 0;
+
 async function fetchTabulatedFeed(contentType, page) {
   const gridTarget = document.getElementById("dynamic-grid-target");
-  
+  // A tab click while an earlier request is still retrying must win
+  const requestId = ++feedRequestId;
+
+  if (contentType === "general") {
+    renderGeneralDocs(gridTarget);
+    return;
+  }
+
   gridTarget.innerHTML = `
-    <div class="text-center w-100 py-5" style="grid-column: 1 / -1;">
+    <div class="cms-status">
       <div class="spinner-border text-primary" role="status"></div>
-      <p class="text-muted mt-2">Streaming structured data context...</p>
+      <p class="mt-2">${window.ACDRM_LOADING_TEXT}</p>
     </div>
   `;
 
   try {
-    const response = await fetch(`${API_BASE_URL}/feed/${contentType}?page=${page}&limit=${recordsLimit}`);
+    const response = await window.acdrmFetch(`${API_BASE_URL}/feed/${contentType}?page=${page}&limit=${recordsLimit}`);
+    if (requestId !== feedRequestId) return;
+    if (!response.ok) throw new Error(`HTTP ${response.status}`);
     const payload = await response.json();
+    if (requestId !== feedRequestId) return;
 
     if (!payload.success || !payload.documents || payload.documents.length === 0) {
       displayEmptyState(gridTarget, contentType);
@@ -55,12 +67,15 @@ async function fetchTabulatedFeed(contentType, page) {
     if (window.AOS) window.AOS.refresh();
 
   } catch (error) {
-    console.error("Critical Runtime Feed Ingestion Failure:", error);
+    if (requestId !== feedRequestId) return;
+    console.error("Research feed failed to load:", error);
     gridTarget.innerHTML = `
-      <div class="alert alert-danger text-center w-100" style="grid-column: 1 / -1;" role="alert">
-        <i class="bi bi-exclamation-triangle-fill"></i> Data extraction service context dropped. Please attempt to refresh.
+      <div class="cms-status">
+        <p>${window.ACDRM_UNAVAILABLE_TEXT}</p>
+        <button type="button" class="cms-retry">Try again</button>
       </div>
     `;
+    gridTarget.querySelector(".cms-retry").addEventListener("click", () => fetchTabulatedFeed(currentTab, currentPage));
   }
 }
 
@@ -89,6 +104,9 @@ function compileCardTemplate(item) {
 
   return `
     <div class="pub-card" data-aos="fade-up">
+      <div class="pub-photo">
+        <img src="${window.acdrmCover(item.coverImage, 640, '../assets/img/hero/hero-1.jpg')}" alt="${item.title}" loading="lazy">
+      </div>
       <span class="pub-tag ${cssTag}">${item.type}</span>
       <h3>${item.title}</h3>
       <p class="text-muted small" style="display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden;">
@@ -99,9 +117,36 @@ function compileCardTemplate(item) {
   `;
 }
 
+// General documents come from assets/js/general-docs.js, not the backend
+function renderGeneralDocs(gridTarget) {
+  const docs = window.ACDRM_GENERAL_DOCS || [];
+  renderPaginationControls({});
+
+  if (docs.length === 0) {
+    displayEmptyState(gridTarget, "general");
+    return;
+  }
+
+  gridTarget.innerHTML = docs.map(doc => `
+    <div class="pub-card" data-aos="fade-up">
+      <div class="pub-photo is-banner">
+        <img src="../${doc.cover}" alt="${doc.title}" loading="lazy">
+      </div>
+      <h3>${doc.title}</h3>
+      <p class="text-muted small" style="display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden;">
+        ${doc.summary || ""}
+      </p>
+      <div class="meta"><span class="pub">ACDRM</span> · ${new Date(doc.date).getFullYear()}</div>
+      <a href="document.html?id=${doc.id}" class="pub-link">View &amp; download <i class="bi bi-arrow-right"></i></a>
+    </div>
+  `).join("");
+
+  if (window.AOS) window.AOS.refresh();
+}
+
 function renderPaginationControls(pagination) {
   const container = document.getElementById("pagination-controls");
-  if (!pagination || pagination.totalPages <= 1) {
+  if (!pagination || !(pagination.totalPages > 1)) {
     container.innerHTML = "";
     return;
   }
@@ -140,7 +185,7 @@ async function hydrateNewsInsightFeed() {
   if (!targetNewsGrid) return;
 
   try {
-    const response = await fetch(`${API_BASE_URL}/feed/articles?page=1&limit=3`);
+    const response = await window.acdrmFetch(`${API_BASE_URL}/feed/articles?page=1&limit=3`);
     const payload = await response.json();
 
     if (!payload.success || !payload.documents || payload.documents.length === 0) {
@@ -151,7 +196,7 @@ async function hydrateNewsInsightFeed() {
     targetNewsGrid.innerHTML = payload.documents.map(article => `
       <div class="news-card" data-aos="fade-up">
         <div class="news-photo">
-          <img src="${article.coverImage || '../assets/img/hero/hero-1.jpg'}" alt="${article.title}">
+          <img src="${window.acdrmCover(article.coverImage, 640, '../assets/img/hero/hero-1.jpg')}" alt="${article.title}" loading="lazy">
         </div>
         <div class="news-body">
           <span class="news-cat">${article.status || 'Insight'}</span>

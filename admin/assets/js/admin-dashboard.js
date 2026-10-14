@@ -19,6 +19,65 @@ document.addEventListener("DOMContentLoaded", () => {
   // Local state cache to avoid repeated network round-trips when reading details for edits
   let contentCacheStore = [];
 
+  function getSelectedFile(inputId) {
+    const input = document.getElementById(inputId);
+    return input && input.files && input.files.length > 0 ? input.files[0] : null;
+  }
+
+  function getContentFormValues() {
+    return {
+      title: document.getElementById("title").value.trim(),
+      description: document.getElementById("description").value.trim(),
+      body: document.getElementById("body").value.trim(),
+      type: document.getElementById("type").value,
+      status: document.getElementById("status").value,
+      coverImageFile: getSelectedFile("coverImage"),
+      pdfFile: getSelectedFile("pdf")
+    };
+  }
+
+  function validateContentValues(values) {
+    if ((values.type === "ARTICLE" || values.type === "BLOG") && values.body.length < 20) {
+      throw new Error("ARTICLE and BLOG content requires body text of at least 20 characters.");
+    }
+
+    if ((values.type === "PUBLICATION" || values.type === "PDF") && !values.pdfFile) {
+      throw new Error("PUBLICATION and PDF content requires a PDF file.");
+    }
+  }
+
+  function buildContentFormData(values) {
+    const formData = new FormData();
+
+    formData.append("title", values.title);
+    formData.append("description", values.description);
+    formData.append("type", values.type);
+    formData.append("status", values.status);
+
+    if (values.body) {
+      formData.append("body", values.body);
+    }
+
+    if (values.coverImageFile) {
+      formData.append("coverImage", values.coverImageFile);
+    }
+
+    if (values.pdfFile) {
+      formData.append("pdf", values.pdfFile);
+    }
+
+    return formData;
+  }
+
+  async function parseResponseBody(response) {
+    const contentType = response.headers.get("content-type") || "";
+    if (contentType.includes("application/json")) {
+      return response.json();
+    }
+
+    return response.text();
+  }
+
   // 2. Query and Build Inventory View Pipeline
   async function fetchInventoryIndex() {
     try {
@@ -61,8 +120,6 @@ document.addEventListener("DOMContentLoaded", () => {
   contentForm.addEventListener("submit", async (e) => {
     e.preventDefault();
     
-    // Construct HTML5 multipart object. Native browser attaches boundaries correctly
-    const formData = new FormData(contentForm);
     const targetId = hiddenIdInput.value;
     
     // Conditional assignment for polymorphic endpoint routing mapping
@@ -70,6 +127,10 @@ document.addEventListener("DOMContentLoaded", () => {
     const executionMethod = targetId ? "PATCH" : "POST";
 
     try {
+      const values = getContentFormValues();
+      validateContentValues(values);
+      const formData = buildContentFormData(values);
+
       submitBtn.disabled = true;
       submitBtn.textContent = "Streaming Payload Structural Bits...";
 
@@ -82,8 +143,13 @@ document.addEventListener("DOMContentLoaded", () => {
       });
 
       if (!response.ok) {
-        const errorData = await response.json();
-        throw new Error(errorData.message || "Ecosystem server processing failure structural issue.");
+        const errorData = await parseResponseBody(response);
+        if (response.status === 400) {
+          console.error("Backend validation error:", errorData);
+        }
+
+        const errorMessage = typeof errorData === "string" ? errorData : errorData.message;
+        throw new Error(errorMessage || "Ecosystem server processing failure structural issue.");
       }
 
       resetFormState();

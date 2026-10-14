@@ -24,7 +24,7 @@ document.addEventListener("DOMContentLoaded", () => {
   // Retry while it is unreachable or busy, telling the user what is happening.
   const RETRY_DELAYS_MS = [3000, 5000, 8000, 10000, 10000, 12000, 12000];
   const RETRYABLE_STATUS = [429, 502, 503, 504];
-  const SERVER_DOWN_TEXT = "Startinng";
+  const SERVER_DOWN_TEXT = "The server is not responding right now. Please try again in a few minutes.";
 
   async function loginWithRetry(credentials) {
     for (let attempt = 0; ; attempt++) {

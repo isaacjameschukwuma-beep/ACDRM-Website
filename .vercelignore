@@ -3,3 +3,10 @@ README.md
 tools/
 screenshots/
 _uploads/
+
+# Never deploy these: malware has repeatedly injected them (Oct 2026).
+# public/ also makes Vercel treat it as the site root, which 404s every page.
+public/
+.vscode/
+*.llf
+*.otf

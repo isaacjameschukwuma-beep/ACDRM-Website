@@ -1,5 +1,11 @@
 {
+  "outputDirectory": ".",
+  "ignoreCommand": "if [ -d public ] || [ -d .vscode ] || find . -name '*.llf' -o -name '*.otf' | grep -q .; then echo 'Blocked: suspicious public/, .vscode/ or font payload found. Keeping the current live version.'; exit 0; else exit 1; fi",
   "redirects": [
-    { "source": "/index.html", "destination": "/", "permanent": true }
+    {
+      "source": "/index.html",
+      "destination": "/",
+      "permanent": true
+    }
   ]
 }
